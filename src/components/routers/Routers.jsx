@@ -9,7 +9,7 @@ import {Signup} from "../../pages/Signup.jsx";
 import {MainLayout} from "../../layouts/MainLayout.jsx";
 
 
-export const ProviderRouters = React.memo(() => {
+export const AppRouterProvider = React.memo(() => {
     const router = createBrowserRouter([
         {
             path: "/",

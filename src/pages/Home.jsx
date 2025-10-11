@@ -41,7 +41,7 @@ export const Home = React.memo(() => {
     }, [data, categories]);
 
     const getCurrentPage = (currentPage) => {
-        const totalElements = 10;
+        const totalElements = 12;
         setCurrentPage(currentPage  * totalElements);
         setStartElement( (currentPage * totalElements ) - totalElements );
     }
@@ -70,7 +70,7 @@ export const Home = React.memo(() => {
 
     return <section className={"grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
         <SideFilters />
-        <ul className={loading && !error ? "col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
+        <ul className={loading && !error ? "items-center p-5 col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
             {
                 error
                 ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}><BiCommentError /> Problem When Data Loading</span>

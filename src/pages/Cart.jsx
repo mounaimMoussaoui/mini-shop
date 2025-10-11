@@ -31,46 +31,71 @@ export const Cart = React.memo(() => {
 
     return <div className="cart">
         <h1 className={"py-5 uppercase text-xl font-bold"}>Your Cart Products</h1>
-        <table className="table table-striped table-bordered w-full">
-            <thead className={"p-4 text-center border-t border-b border-gray-200 text-white uppercase bg-gray-600"}>
+        {
+            cart.length > 0 ? <table className="table table-striped table-bordered w-full overflow-x-auto">
+                <thead className={"p-4 text-center border-t border-b border-gray-200 text-white uppercase bg-gray-600"}>
                 <tr>
-                    <td className={"p-4 font-bold"}>ID</td>
-                    <td className={"p-4 font-bold"}>Product Title</td>
-                    <td className={"p-4 font-bold"}>Quantity</td>
-                    <td className={"p-4 font-bold"}>Actions</td>
-                    <td className={"p-4 font-bold"}>Total Price</td>
+                    <th className={"p-4 font-bold"}>ID</th>
+                    <th className={"p-4 font-bold"}>Product Title</th>
+                    <th className={"p-4 font-bold"}>Quantity</th>
+                    <th className={"p-4 font-bold"}>Actions</th>
+                    <th className={"p-4 font-bold"}>Total Price</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {
-                    cart.length > 0 ? cart.map((item, index) => (
+                    cart.map((item, index) => (
                         <tr key={index} className={"text-center"}>
                             <td className={"p-4 border-gray-200 border-r"}>{item.id}</td>
-                            <td className={"p-4 border-gray-200 border-r text-left"}>{item.title}</td>
+                            <td className={"p-4 border-gray-200 border-r text-left flex gap-4 items-center"}>
+                                <img src={item.images[0]} alt="Product Image" width="70" height="70" className="rounded-full max-w-[40px] max-h-[40px] md:max-w-[60px] md:max-h-[60px]" />
+                                <p>{item.title}</p>
+                            </td>
                             <td className={"p-4 border-gray-200 border-r"}>
                                 {/*add a select here to manage the Quantity of product*/}
                                 <form>
                                     <label htmlFor="totalProducts" className="flex items-center justify-between">
-                                        <button type={"button"}  onClick={() => { handleChangePiecesDecrement(item.id) }} className={"rounded-full w-[25px] h-[25px] relative overflow-hidden"}><FaCircleMinus className={"absolute top-0 left-0 w-[100%] h-[100%] transition ease-in hover:scale-75"}/></button>
-                                        <input type="text" id={"totalProducts"} className={"border-none w-[20px] h-[20px] font-bold focus:outline-none"}
+                                        <button type={"button"} onClick={() => {
+                                            handleChangePiecesDecrement(item.id)
+                                        }} className={"rounded-full w-[25px] h-[25px] relative overflow-hidden"}>
+                                            <FaCircleMinus
+                                                className={"absolute top-0 left-0 w-[100%] h-[100%] transition ease-in hover:scale-75"}/>
+                                        </button>
+                                        <input type="text" id={"totalProducts"}
+                                               className={"border-none w-[20px] h-[20px] font-bold focus:outline-none"}
                                                value={item.totalPieces} placeholder={"1"}
                                                name={"nbrOfPieces"}
-                                               onChange={(e) => e.target.value }
+                                               onChange={(e) => e.target.value}
                                                title={"Number Of Pieces Added"}/>
-                                        <button type={"button"} onClick={() => { handleChangePiecesIncrement(item.id) }} className={"rounded-full w-[25px] h-[25px] relative overflow-hidden"}><FaCirclePlus className={" absolute top-0 left-0 w-[100%] h-[100%] transition ease-in hover:scale-75"}/></button>
+                                        <button type={"button"} onClick={() => {
+                                            handleChangePiecesIncrement(item.id)
+                                        }} className={"rounded-full w-[25px] h-[25px] relative overflow-hidden"}>
+                                            <FaCirclePlus
+                                                className={" absolute top-0 left-0 w-[100%] h-[100%] transition ease-in hover:scale-75"}/>
+                                        </button>
                                     </label>
                                 </form>
                             </td>
-                            <td className={"p-4 border-gray-200 border-r"}><ul className={"flex items-center justify-center gap-4"}><li onClick={() => {handleTrashClick(item.id)}} className={"text-red-500 cursor-pointer opacity-50 transition hover:opacity-100 hover:scale-125"}><FaTrash/></li></ul></td>
+                            <td className={"p-4 border-gray-200 border-r"}>
+                                <ul className={"flex items-center justify-center gap-4"}>
+                                    <li onClick={() => {
+                                        handleTrashClick(item.id)
+                                    }}
+                                        className={"text-red-500 cursor-pointer opacity-50 transition hover:opacity-100 hover:scale-125"}>
+                                        <FaTrash/></li>
+                                </ul>
+                            </td>
                             <td className={"p-4"}>{(item.price * item.totalPieces).toFixed(2)} $</td>
                         </tr>
-                    )) : <tr><td colSpan={4} className={"text-center font-bold text-gray-300 text-xl p-4"}>No Product Yet ...</td></tr>
+                    ))
                 }
-            </tbody>
-            <tfoot className={"border-t border-gray-200"}>
+                </tbody>
+                <tfoot className={"border-t border-gray-200"}>
                 <tr className={"border-t border-b border-gray-200 bg-gray-100"}>
                     <td colSpan={4} className={"p-4 border-r border-gray-200"}>Total Products Price :</td>
-                    <td className={"p-4 text-center"}><strong>{(cart.reduce((a, b) => {return a + (b.price * b.totalPieces) }, 0)).toFixed(2)} $</strong></td>
+                    <td className={"p-4 text-center"}><strong>{(cart.reduce((a, b) => {
+                        return a + (b.price * b.totalPieces)
+                    }, 0)).toFixed(2)} $</strong></td>
                 </tr>
                 <tr>
                     <td colSpan={5} className={"p-4"}>
@@ -86,9 +111,9 @@ export const Cart = React.memo(() => {
                         </div>
                     </td>
                 </tr>
-            </tfoot>
-        </table>
+                </tfoot>
+            </table> : <span className={"font-bold text-gray-200 text-lg md:text-5xl text-center mx-auto block py-10"}>No Product Yet ...</span>
+        }
+
     </div>
 });
-
-

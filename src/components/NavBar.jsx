@@ -6,7 +6,7 @@ import {FaBars} from "react-icons/fa6";
 import {useCartStore} from "../store/cartStore.js";
 
 export const NavBar = React.memo(() => {
-    const [fadeIn, setFadeIn] = React.useState(false);
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const { cart } = useCartStore();
 
     const activeLink = useCallback(({isActive}) => {
@@ -15,16 +15,16 @@ export const NavBar = React.memo(() => {
 }, []);
 
     const handleClick = useCallback(() => {
-        setFadeIn(!fadeIn);
-    }, [fadeIn]);
+        setIsMenuOpen(!isMenuOpen);
+    }, [isMenuOpen]);
 
-    return <nav className="flex items-center gap-5 p-5 bg-white z-10 shadow-sm shadow-black h-[90px] sticky top-0">
+    return <nav role="navigation" aria-label="Main navigation" className="flex items-center gap-5 p-5 bg-white z-10 shadow-sm shadow-black h-[90px] sticky top-0">
         <div className="logo whitespace-nowrap transition-[0.3s] font-bold uppercase ms:tracking-wide sm:text-xl sm:w-[fit-content] text-white bg-amber-500 p-3 rounded shadow-sm shadow-amber-300">
             <NavLink to={'/'}>
                 Mini-Shop
             </NavLink>
         </div>
-        <ul className={`bg-amber-500  -z-10 ${fadeIn ? "opacity-1 top-[90px]" : "opacity-0 top-[80px] pointer-events-none"} transition-[0.3s] flex-col text-white absolute py-5 left-0 w-full sm:opacity-100 ms:z-10 sm:pointer-events-auto sm:flex sm:top-0 sm:relative sm:bg-transparent sm:text-black sm:flex-row sm:w-fit-content sm:flex-1 sm:justify-between md:gap-x-5 md:justify-end`}>
+        <ul className={`bg-amber-500  -z-10 ${isMenuOpen ? "opacity-1 top-[90px]" : "opacity-0 top-[80px] pointer-events-none"} transition-[0.3s] flex-col text-white absolute py-5 left-0 w-full sm:opacity-100 ms:z-10 sm:pointer-events-auto sm:flex sm:top-0 sm:relative sm:bg-transparent sm:text-black sm:flex-row sm:w-fit-content sm:flex-1 sm:justify-between md:gap-x-5 md:justify-end`}>
             <li>
                 <NavLink to="/" className={activeLink}><IoHome/> Home</NavLink>
             </li>

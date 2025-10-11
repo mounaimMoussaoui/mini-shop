@@ -38,14 +38,15 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
                 </p>
             </div>
 
-            <span className="price absolute top-2 left-2 rounded-full bg-black text-white w-[50px] h-[50px] flex items-center justify-center font-bold">
+            <span className="price absolute top-2 left-2 rounded-full bg-black text-white min-w-[40px] sm:min-w-[50px] p-4 flex items-center justify-center font-bold">
         {formatPrice(product.price)}
       </span>
 
             <button
                 type="button"
                 onClick={() => {onAddToCart?.(product);}}
-                className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-5 font-bold text-white text-md uppercase my-3 py-[15px] px-[25px]"
+                className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-5 font-bold text-white text-md uppercase my-3 py-[15px] px-[25px] transition ease-in hover:bg-amber-600"
+                role="button"
                 aria-label="Add product to cart"
             >
                 <FaCartPlus /> Add To Cart

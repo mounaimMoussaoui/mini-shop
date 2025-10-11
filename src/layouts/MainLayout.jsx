@@ -6,9 +6,9 @@ import {Footer} from "../components/Footer.jsx";
 export const MainLayout = React.memo(() => {
     return <>
         <NavBar/>
-        <section className="container-fluid p-5 min-h-[100vh]">
-            <Outlet/>
-        </section>
+            <section className="container-fluid min-h-[90vh]">
+                <Outlet/>
+            </section>
         <Footer/>
     </>
 });
