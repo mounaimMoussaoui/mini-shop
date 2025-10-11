@@ -70,7 +70,7 @@ export const Cart = React.memo(() => {
             <tfoot className={"border-t border-gray-200"}>
                 <tr className={"border-t border-b border-gray-200 bg-gray-100"}>
                     <td colSpan={4} className={"p-4 border-r border-gray-200"}>Total Products Price :</td>
-                    <td className={"p-4 text-center"}><strong>{(cart.reduce((a, b) => {return a + b.price }, 0)).toFixed(2)} $</strong></td>
+                    <td className={"p-4 text-center"}><strong>{(cart.reduce((a, b) => {return a + (b.price * b.totalPieces) }, 0)).toFixed(2)} $</strong></td>
                 </tr>
                 <tr>
                     <td colSpan={5} className={"p-4"}>

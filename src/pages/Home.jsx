@@ -55,7 +55,7 @@ export const Home = React.memo(() => {
 
         } else if(Object.hasOwn(newProd, "id")) {
 
-            newProd.totalPieces = 1;
+            newProd.totalPieces = 0;
             addToCart(newProd);
 
         }
@@ -73,11 +73,11 @@ export const Home = React.memo(() => {
         <ul className={loading && !error ? "col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
             {
                 error
-                ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}> <BiCommentError /> Problem When Data Loading</span>
+                ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}><BiCommentError /> Problem When Data Loading</span>
                 : loading
                 ? data.slice(startElement, currentPage).map((item) => {
                     return <li key={item.id}>
-                        <ProductCard key={item.id} product={item} onAddToCart={(product) => { handleAddToCart(product)}} />
+                        <ProductCard key={item.id} product={item} onAddToCart={(product) => {handleAddToCart(product)}} />
                     </li>
                 }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
             }
