@@ -2,10 +2,12 @@ import React, {useCallback} from "react";
 import {useCartStore} from "../store/cartStore.js";
 import {FaCirclePlus, FaCircleMinus, FaTrash} from "react-icons/fa6"
 import {FaCheckCircle} from "react-icons/fa";
+import { IoIosRemoveCircle } from "react-icons/io";
+import {AlertPopup} from "./AlertPopup.jsx";
 //Zustand use this tool to create a State Management
 
 export const Cart = React.memo(() => {
-    const {cart, deleteCart, clearCart, decrementPiecesTotal, incrementPiecesTotal} = useCartStore();
+    const {cart, isAddingCart, deleteCart, clearCart, decrementPiecesTotal, incrementPiecesTotal, changeAddingState} = useCartStore();
 
     const handleChangePiecesIncrement = ((id) => {
         const totalPieces = cart.find((item) => item.id === id).totalPieces;
@@ -23,13 +25,19 @@ export const Cart = React.memo(() => {
 
     const handleTrashClick = useCallback((ID) => {
         deleteCart(ID);
+        changeAddingState();
+
+        setTimeout(() => {
+            changeAddingState();
+        }, 1000)
+
     }, [deleteCart]);
 
     const handleClearAll = useCallback(() => {
         clearCart();
     }, [clearCart]);
 
-    return <div className="cart">
+    return <div className="cart p-5 relative">
         <h1 className={"py-5 uppercase text-xl font-bold"}>Your Cart Products</h1>
         {
             cart.length > 0 ? <table className="table table-striped table-bordered w-full overflow-x-auto">
@@ -114,6 +122,6 @@ export const Cart = React.memo(() => {
                 </tfoot>
             </table> : <span className={"font-bold text-gray-200 text-lg md:text-5xl text-center mx-auto block py-10"}>No Product Yet ...</span>
         }
-
+        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-red-400"} message={"Product Delete Successfully"}> <IoIosRemoveCircle className={"text-xl text-white"} /> </AlertPopup> }
     </div>
 });

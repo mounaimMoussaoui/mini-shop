@@ -3,6 +3,7 @@ import { create } from "zustand"
 
 export const useCartStore = create((Set) => ({
     cart: [],
+    isAddingCart: false,
     addToCart: (product) => {Set((state) => ({cart: [...state.cart, product]}))},
     deleteCart: (productID) => { Set((state) => ({ cart: state.cart.filter((product) => product.id !== productID) } )) },
     clearCart: () => { Set(() => ({ cart: [] })) },
@@ -19,13 +20,5 @@ export const useCartStore = create((Set) => ({
                 : product
         ),
     })),
+    changeAddingState: () => { Set((state) => ({ isAddingCart: !state.isAddingCart }))}
 }));
-
-
-
-// (productID) => { Set((state) => ({ cart: state.cart.map((product) => {
-//         if(product.id === productID) {
-//             product.totalPieces +=  1;
-//         }
-//         return product;
-//     })}))}

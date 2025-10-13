@@ -1,10 +1,14 @@
-import React, {useEffect} from "react";
+import React, {Suspense, useEffect} from "react";
 import {getProducts, getCategories} from "../services/api.js";
 import {ProductCard} from "../components/ProductCard.jsx";
 import { BiCommentError } from "react-icons/bi";
 import {Pagination} from "../components/Pagination.jsx";
 import {SideFilters} from "../components/SideFilters.jsx";
 import {useCartStore} from "../store/cartStore.js";
+import {AlertPopup} from "./AlertPopup.jsx";
+import {FaCartPlus} from "react-icons/fa";
+// const AlertPopup = React.lazy(() => import("./AlertPopup.jsx"))
+
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
     const [categories, setCategories] = React.useState([]);
@@ -12,8 +16,9 @@ export const Home = React.memo(() => {
     const [error, setError] = React.useState(false);
     const [currentPage, setCurrentPage] = React.useState(0);
     const [startElement, setStartElement] = React.useState(0);
-    const { cart, addToCart } = useCartStore();
+    const { cart, isAddingCart, addToCart, changeAddingState } = useCartStore();
     const [newProd, setNewProduct] = React.useState({});
+    // const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         getProducts().then((res) => {
@@ -60,15 +65,20 @@ export const Home = React.memo(() => {
 
         }
 
-    }, [newProd, cart, addToCart])
+
+    }, [newProd, cart, addToCart]);
 
 
     const handleAddToCart = (product) => {
         setNewProduct(product);
+        changeAddingState();
+        setTimeout(() => {
+            changeAddingState();
+        }, 1000);
     }
 
 
-    return <section className={"grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
+    return <section className={"relative grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
         <SideFilters />
         <ul className={loading && !error ? "items-center p-5 col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
             {
@@ -85,6 +95,9 @@ export const Home = React.memo(() => {
                 { loading && !error ? <Pagination countPrd={data.length} getCurrentPage={getCurrentPage}/> : null }
             </li>
         </ul>
+        {/*<Suspense fallback={null}>*/}
+        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-400"} message={"Product Added To cart Successfully"}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
+        {/*</Suspense>*/}
     </section>
 
 });
