@@ -3,7 +3,7 @@
 Browse products, add to cart, checkout, and view order history.
 
 ## 🚀 Live
-https://your-mini-shop.vercel.app
+https://minie-commerce-shop.netlify.app/
 
 ## ✨ Features
 - Auth (Email/Password)
