@@ -30,14 +30,20 @@ export const Signup = React.memo(() => {
         <form onSubmit={formik.handleSubmit} className="mt-[100px] max-w-[500px] mx-auto form flex flex-col gap-4 items-center">
             <div className="group flex flex-col gap-2 w-full">
                 <label htmlFor="emailField" className={"font-bold"}>Email :</label>
-                <input type="email" id={"emailField"} name="email" value={formik.values.email} onChange={formik.handleChange}
+                <input type="email" id={"emailField"} name="email"
+                       value={formik.values.email}
+                       onChange={formik.handleChange}
+                       onBlur={formik.handleBlur}
                        placeholder={"email@example.com"}
                        className={"shadow-sm shadow-black py-3 px-5 rounded focus:outline-none transition ease-in-out focus:shadow-cyan-800"}/>
                 { formik.errors.email && formik.touched.email ? <span className={"text-red-500 text-sm"}>{formik.errors.email}</span> : null}
             </div>
             <div className="group flex flex-col gap-2 w-full">
                 <label htmlFor="passField" className={"font-bold"}>Password :</label>
-                <input type="password" id={"passField"} name="password" value={formik.values.password} onChange={formik.handleChange}
+                <input type="password" id={"passField"} name="password"
+                       value={formik.values.password}
+                       onBlur={formik.handleBlur}
+                       onChange={formik.handleChange}
                        placeholder={"password"}
                        className={"shadow-sm shadow-black py-3 px-5 rounded focus:outline-none transition ease-in-out focus:shadow-cyan-800"}/>
                 { formik.errors.password && formik.touched.password ? <span className={"text-red-500 text-sm"}>{formik.errors.password}</span> : null}
