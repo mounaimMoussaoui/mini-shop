@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { auth  } from "../firebase.js";
 import {Form, Formik, useField} from "formik";
 import { signInWithEmailAndPassword } from "firebase/auth"
 import {signUpSchema} from "../schemas/SignUpSchema.js";
 import { TbLockPassword } from "react-icons/tb";
 import { MdOutlineMail } from "react-icons/md";
+import { CiCircleInfo } from "react-icons/ci";
+import {AlertPopup} from "./AlertPopup.jsx";
+import { useAuthContext} from "../authMangment/AuthContext.js"
 
 
 const MyTextField = ({label, children, ...props}) => {
@@ -28,19 +31,29 @@ const MyTextField = ({label, children, ...props}) => {
 
 
 export const Login = React.memo(() => {
+    const { authStateManagement, addLogin } = useAuthContext();
+    const [login, setLogin] = React.useState(false);
+
+    useEffect(() => {
+        setLogin(true);
+        setTimeout(() => {
+            setLogin(false);
+        }, 1000);
+    }, [authStateManagement]);
+
     return <>
         <h1 className={"text-5xl font-bold w-fit mx-auto mt-5"}>Login</h1>
         <Formik
         initialValues={{
             email: '',
-            password: ''
+            password: '',
         }}
         validationSchema={signUpSchema}
         onSubmit={(values, { setSubmitting }) => {
             signInWithEmailAndPassword(auth, values.email, values.password).then( (res) => {
-                console.log(res)
-            } ).catch((rej) => {
-                console.error(rej);
+                addLogin(res.user);
+            }).catch((rej) => {
+                console.error(rej.message);
             });
             setSubmitting(false);
         }}
@@ -57,5 +70,10 @@ export const Login = React.memo(() => {
                 >Login</button>
             </Form>
         </Formik>
+        {
+            login && <AlertPopup isAddingCart={login} message={`Login Success ${authStateManagement?.user?.email}`} bgColor={"bg-green-600"} >
+                <CiCircleInfo className={"text-white font-bold"}/>
+            </AlertPopup>
+        }
     </>
 });
