@@ -1,45 +1,20 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { auth  } from "../firebase.js";
-import {Form, Formik, useField} from "formik";
-import { signInWithEmailAndPassword } from "firebase/auth"
-import {signUpSchema} from "../schemas/SignUpSchema.js";
+import { Form, Formik } from "formik";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { LoginSchema } from "../schemas/LoginSchema.js";
 import { TbLockPassword } from "react-icons/tb";
 import { MdOutlineMail } from "react-icons/md";
 import { CiCircleInfo } from "react-icons/ci";
-import {AlertPopup} from "./AlertPopup.jsx";
-import { useAuthContext} from "../authMangment/AuthContext.js"
-
-
-const MyTextField = ({label, children, ...props}) => {
-
-    const [field, meta] = useField(props);
-    return  (<>
-        <label htmlFor={props.id || props.name}
-            className={"text-xl font-bold"}
-            >{label}</label>
-        <div className="relative w-full h-[50px]">
-            <span className={`absolute top-[50%] left-[8px] translate-y-[-50%] text-2xl z-10 ${meta.touched && meta.error ? "text-red-500" : "text-green-500"}`}>{children}</span>
-            <input
-                className={`input-form py-3 px-[40px] shadow-lg rounded-sm absolute min-w-full min-h-full transition ease-in-out focus:outline-none focus:border-b-2 ${meta.touched && meta.error ? 'focus:border-b-red-500' : 'border-green-500'}`}
-                {...field} {...props} />
-        </div>
-        {
-            meta.touched && meta.error ? ( <span className={"text-sm text-red-500 "}>{meta.error}</span> ) : null
-        }
-    </>)
-};
-
+import { AlertPopup } from "./AlertPopup.jsx";
+import { useAuthContext } from "../authMangment/AuthContext.js"
+import { MyTextField } from "../formikFields/TextField.jsx";
+import { useNavigate } from "react-router-dom";
 
 export const Login = React.memo(() => {
     const { authStateManagement, addLogin } = useAuthContext();
     const [login, setLogin] = React.useState(false);
-
-    useEffect(() => {
-        setLogin(true);
-        setTimeout(() => {
-            setLogin(false);
-        }, 1000);
-    }, [authStateManagement]);
+    const navigate  = useNavigate();
 
     return <>
         <h1 className={"text-5xl font-bold w-fit mx-auto mt-5"}>Login</h1>
@@ -48,10 +23,12 @@ export const Login = React.memo(() => {
             email: '',
             password: '',
         }}
-        validationSchema={signUpSchema}
+        validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
             signInWithEmailAndPassword(auth, values.email, values.password).then( (res) => {
                 addLogin(res.user);
+                navigate("/profile");
+                setLogin(true);
             }).catch((rej) => {
                 console.error(rej.message);
             });

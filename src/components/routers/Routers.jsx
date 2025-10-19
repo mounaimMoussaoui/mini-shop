@@ -7,6 +7,7 @@ import {NotFound} from "../../pages/NotFound.jsx";
 import {Login} from "../../pages/Login.jsx";
 import {Signup} from "../../pages/Signup.jsx";
 import {MainLayout} from "../../layouts/MainLayout.jsx";
+import {ProtectRouter} from "../../hooks/ProtectRouter.jsx";
 
 
 export const AppRouterProvider = React.memo(() => {
@@ -33,7 +34,7 @@ export const AppRouterProvider = React.memo(() => {
                 },
                 {
                     path: "/profile",
-                    element: <Profile />
+                    element: <ProtectRouter> <Profile /> </ProtectRouter>
                 }
             ]
         },
