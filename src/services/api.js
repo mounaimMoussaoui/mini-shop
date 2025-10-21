@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://api.escuelajs.co/api/v1",
+    baseURL: import.meta.env.VITE_APP_API_BASEURL,
     timeout: 8000,
 });
 

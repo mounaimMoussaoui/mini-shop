@@ -15,6 +15,7 @@ export const Login = React.memo(() => {
     const { authStateManagement, addLogin } = useAuthContext();
     const [login, setLogin] = React.useState(false);
     const navigate  = useNavigate();
+    const [message, setMessage] = React.useState({});
 
     return <>
         <h1 className={"text-5xl font-bold w-fit mx-auto mt-5"}>Login</h1>
@@ -29,8 +30,12 @@ export const Login = React.memo(() => {
                 addLogin(res.user);
                 navigate("/profile");
                 setLogin(true);
+                setMessage(prev =>  { return { ...prev, message: "logged successfully", color: "bg-green-600" } });
             }).catch((rej) => {
+                setLogin(true);
+                setMessage(prev =>  { return { ...prev, message: "Error", color: "bg-red-600" } });
                 console.error(rej.message);
+
             });
             setSubmitting(false);
         }}
@@ -48,7 +53,7 @@ export const Login = React.memo(() => {
             </Form>
         </Formik>
         {
-            login && <AlertPopup isAddingCart={login} message={`Login Success ${authStateManagement?.user?.email}`} bgColor={"bg-green-600"} >
+            login && <AlertPopup isAddingCart={login} message={`${message.message} ${authStateManagement.user ? authStateManagement.user.email : ""}`} bgColor={message.color} >
                 <CiCircleInfo className={"text-white font-bold"}/>
             </AlertPopup>
         }

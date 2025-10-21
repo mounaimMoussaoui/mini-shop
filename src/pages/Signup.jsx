@@ -5,7 +5,6 @@ import {createUserWithEmailAndPassword} from "firebase/auth";
 import {signUpSchema} from "../schemas/SignUpSchema.js";
 import {MdOutlineMail} from "react-icons/md";
 import {TbLockPassword} from "react-icons/tb";
-import { FaRegUser } from "react-icons/fa";
 import {MyTextField} from "../formikFields/TextField.jsx";
 
 export const Signup = React.memo(() => {
@@ -21,7 +20,6 @@ export const Signup = React.memo(() => {
     return <>
         <h1 className={"mx-auto block p-5 font-bold text-5xl w-fit"}>Sign UP</h1>
         <Formik initialValues={{
-            username: "",
             email: "",
             password: ""
         }}
@@ -31,8 +29,6 @@ export const Signup = React.memo(() => {
             setSubmitting(false);
         }}>
             <Form className={"mt-[100px] max-w-[500px] mx-auto form flex flex-col gap-4"}>
-                <MyTextField type={"text"} id={"username"} name={"username"} placeholder={"User Name"}
-                             label={"Username :"}><FaRegUser/> </MyTextField>
                 <MyTextField type={"email"} id={"email"} name={"email"} placeholder={"example@gmail.com"}
                              label={"Email :"}><MdOutlineMail/> </MyTextField>
                 <MyTextField type={"password"} id={"password"} name={"password"} placeholder={"********"}
@@ -76,5 +72,7 @@ export const Signup = React.memo(() => {
 //     </div>
 //     <button type={"submit"} className={"px-5 py-3 bg-black w-full rounded text-white font-bold"}>Submit</button>
 // </form>
-
+//
+// <MyTextField type={"text"} id={"username"} name={"username"} placeholder={"User Name"}
+//              label={"Username :"}><FaRegUser/> </MyTextField>
 
