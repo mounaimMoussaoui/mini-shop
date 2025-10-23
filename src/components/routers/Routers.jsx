@@ -8,6 +8,7 @@ import {Login} from "../../pages/Login.jsx";
 import {Signup} from "../../pages/Signup.jsx";
 import {MainLayout} from "../../layouts/MainLayout.jsx";
 import {ProtectRouter} from "../../hooks/ProtectRouter.jsx";
+// import {Form} from "../../pages/FormFormik.jsx";
 
 
 export const AppRouterProvider = React.memo(() => {
@@ -45,4 +46,13 @@ export const AppRouterProvider = React.memo(() => {
     ]);
 
     return <RouterProvider router={router} />;
-})
+});
+
+
+
+
+
+// {
+//     path: "/formFormik",
+//     element: <Form />
+// },

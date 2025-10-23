@@ -49,7 +49,8 @@ export const NavBar = React.memo(() => {
             </li>
             <li className={"relative"}>
                 <NavLink to="/cart" className={activeLink}><IoCartSharp/> Cart</NavLink>
-                <span className="absolute -top-0 left-3 text-[10px] px-1 transition-[0.3s] bg-red-500 text-white rounded-full sm:-top-3 sm:-left-2 sm:text-sm sm:px-2">{cart.length}</span>
+                <span
+                    className="absolute -top-0 left-3 text-[10px] px-1 transition-[0.3s] bg-red-500 text-white rounded-full sm:-top-3 sm:-left-2 sm:text-sm sm:px-2">{cart.length}</span>
             </li>
             <li>
                 <NavLink to="/profile" className={activeLink}> <CgProfile/> Profile</NavLink>
@@ -57,10 +58,14 @@ export const NavBar = React.memo(() => {
             <li>
                 <NavLink to="/signup" className={activeLink}><IoCreateOutline/> Signup</NavLink>
             </li>
+            {/*<li>*/}
+            {/*    <NavLink to="/formFormik" className={activeLink}><IoCreateOutline/> Form Formik</NavLink>*/}
+            {/*</li>*/}
             <li>
                 {
-                    login ? <button className={"py-1 px-5 rounded bg-black text-white flex gap-2 items-center"} onClick={handleAuthClick}><MdLogout className={"text-white"}/> Logout</button>
-                    : <NavLink to="/login" className={activeLink}><IoLogIn/> Login</NavLink>
+                    login ? <button className={"py-1 px-5 rounded bg-black text-white flex gap-2 items-center"}
+                                    onClick={handleAuthClick}><MdLogout className={"text-white"}/> Logout</button>
+                        : <NavLink to="/login" className={activeLink}><IoLogIn/> Login</NavLink>
                 }
             </li>
         </ul>

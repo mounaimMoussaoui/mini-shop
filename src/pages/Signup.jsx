@@ -6,15 +6,46 @@ import {signUpSchema} from "../schemas/SignUpSchema.js";
 import {MdOutlineMail} from "react-icons/md";
 import {TbLockPassword} from "react-icons/tb";
 import {MyTextField} from "../formikFields/TextField.jsx";
+import {AlertPopup} from "./AlertPopup.jsx";
+import {CiCircleInfo} from "react-icons/ci";
 
 export const Signup = React.memo(() => {
+    const [signUp, setSignUp] = React.useState({
+        completed: false,
+        error: false,
+        message: "",
+    });
 
     const handleSubmit = useCallback((values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password).then((res) => {
             console.log(res);
+            setSignUp((prevState) => {
+                return {
+                ...prevState,
+                    completed: true,
+                    message: "Sign up Completed Successfully"
+                }
+            });
         }).catch((rej) => {
             console.error(rej.message);
+            setSignUp((prevState) => {
+                return {
+                    ...prevState,
+                    error: true,
+                    message: `Error: ${rej.message}`,
+                }
+            });
         });
+        setTimeout(() => {
+            setSignUp((prevState) => {
+                return {
+                    ...prevState,
+                    error: false,
+                    completed: false,
+                    message: "",
+                }
+            });
+        }, 1000)
     }, []);
 
     return <>
@@ -37,6 +68,12 @@ export const Signup = React.memo(() => {
                 </button>
             </Form>
         </Formik>
+        {
+            signUp.completed || signUp.error ? <AlertPopup message={signUp.message} isAddingCart={signUp.completed || signUp.error}
+                                                           bgColor={signUp.error ? "bg-red-500" : "bg-green-500"}>
+                <CiCircleInfo className={"text-white font-bold"}/>
+            </AlertPopup> : null
+        }
     </>
 });
 
