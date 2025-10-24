@@ -5,11 +5,11 @@ export const useCartStore = create((Set) => ({
     cart: [],
     isAddingCart: false,
     addToCart: (product) => {Set((state) => ({cart: [...state.cart, product]}))},
-    deleteCart: (productID) => { Set((state) => ({ cart: state.cart.filter((product) => product.id !== productID) } )) },
+    deleteCart: (productID) => { Set((state) => ({ cart: [...state.cart.filter((product) => product.id !== productID)] } )) },
     clearCart: () => { Set(() => ({ cart: [] })) },
     decrementPiecesTotal: (productID) => { Set((state) => ({ cart: state.cart.map((product) => {
             if(product.id === productID) {
-                product.totalPieces -=  1;
+                return { ...product, totalPieces:  product.totalPieces - 1 }
             }
             return product;
     })}))},

@@ -32,7 +32,7 @@ export const Signup = React.memo(() => {
                 return {
                     ...prevState,
                     error: true,
-                    message: `Error: ${rej.message}`,
+                    message: `Error: The Email address already exists with email: ${rej.message}`,
                 }
             });
         });
@@ -45,7 +45,7 @@ export const Signup = React.memo(() => {
                     message: "",
                 }
             });
-        }, 1000)
+        }, 1000);
     }, []);
 
     return <>

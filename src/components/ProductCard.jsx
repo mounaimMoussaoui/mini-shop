@@ -44,7 +44,7 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
 
             <button
                 type="button"
-                onClick={() => {onAddToCart?.(product);}}
+                onClick={() => {onAddToCart(product);}}
                 className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-5 font-bold text-white text-md uppercase my-3 py-[15px] px-[25px] transition ease-in hover:bg-amber-600"
                 role="button"
                 aria-label="Add product to cart"

@@ -18,7 +18,6 @@ export const Home = React.memo(() => {
     const [startElement, setStartElement] = React.useState(0);
     const { cart, isAddingCart, addToCart, changeAddingState } = useCartStore();
     const [newProd, setNewProduct] = React.useState({});
-    // const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         getProducts().then((res) => {
@@ -51,18 +50,23 @@ export const Home = React.memo(() => {
         setStartElement( (currentPage * totalElements ) - totalElements );
     }
 
+
+    //Not Completed Must Be Increment
+    // Or Show A Message To The Client Tell Them The Product is Already Exist In The Card
+    // And Ask You If You Need To Added In the Quantity
+
     useEffect(() => {
 
-        const existProduct = cart.filter((item) => { return item.id === newProd.id })[0];
+        let existProduct = cart.filter((item) => { return item.id === newProd.id })[0];
         if (existProduct) {
 
-            existProduct.totalPieces += 1;
+              existProduct = {...existProduct, totalPieces: existProduct.totalPieces + 1};
+
 
         } else if(Object.hasOwn(newProd, "id")) {
 
-            newProd.totalPieces = 0;
-            addToCart(newProd);
-
+             setNewProduct(  (prevState) =>  { return prevState.totalPieces = 1 });
+             addToCart(newProd);
         }
 
 
@@ -70,7 +74,7 @@ export const Home = React.memo(() => {
 
 
     const handleAddToCart = (product) => {
-        setNewProduct(product);
+        setNewProduct( prevState => { return {...prevState ,...product} } );
         changeAddingState();
         setTimeout(() => {
             changeAddingState();

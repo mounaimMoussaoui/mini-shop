@@ -31,7 +31,7 @@ export const Cart = React.memo(() => {
             changeAddingState();
         }, 1000)
 
-    }, [deleteCart]);
+    }, [deleteCart, changeAddingState]);
 
     const handleClearAll = useCallback(() => {
         clearCart();
@@ -60,7 +60,6 @@ export const Cart = React.memo(() => {
                                 <p>{item.title}</p>
                             </td>
                             <td className={"p-4 border-gray-200 border-r"}>
-                                {/*add a select here to manage the Quantity of product*/}
                                 <form>
                                     <label htmlFor="totalProducts" className="flex items-center justify-between">
                                         <button type={"button"} onClick={() => {
