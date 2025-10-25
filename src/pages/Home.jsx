@@ -1,5 +1,5 @@
-import React, {Suspense, useEffect} from "react";
-import {getProducts, getCategories} from "../services/api.js";
+import React, {useEffect, useState} from "react";
+import {getProducts} from "../services/api.js";
 import {ProductCard} from "../components/ProductCard.jsx";
 import { BiCommentError } from "react-icons/bi";
 import {Pagination} from "../components/Pagination.jsx";
@@ -11,13 +11,14 @@ import {FaCartPlus} from "react-icons/fa";
 
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
-    const [categories, setCategories] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [currentPage, setCurrentPage] = React.useState(0);
     const [startElement, setStartElement] = React.useState(0);
-    const { cart, isAddingCart, addToCart, changeAddingState } = useCartStore();
+    const { cart, isAddingCart, deleteCart, addToCart, changeAddingState } = useCartStore();
     const [newProd, setNewProduct] = React.useState({});
+    const [msg, setMsg] = useState("");
+    // const [maxPrice, setMaxPrice] = React.useState(0);
 
     useEffect(() => {
         getProducts().then((res) => {
@@ -27,22 +28,8 @@ export const Home = React.memo(() => {
             setError(true);
             throw new Error("Error getting products list");
         });
-        getCategories().then((res) => {
-           setCategories(res);
-            setError(false);
-        }).catch(() => {
-            setError(true);
-            throw new Error("Error getting categories list");
-        });
-
         setTimeout(() => setLoading(true), 500);
-
     }, []);
-
-    useEffect(() => {
-        console.log(`Data List From API: ${ data[0]}`);
-        console.log(`Categories List From API: ${ categories[0] }`);
-    }, [data, categories]);
 
     const getCurrentPage = (currentPage) => {
         const totalElements = 12;
@@ -50,28 +37,21 @@ export const Home = React.memo(() => {
         setStartElement( (currentPage * totalElements ) - totalElements );
     }
 
+    useEffect(  () => {
+        const existProduct = cart.find((item) => {  return item.id === newProd.id });
 
-    //Not Completed Must Be Increment
-    // Or Show A Message To The Client Tell Them The Product is Already Exist In The Card
-    // And Ask You If You Need To Added In the Quantity
-
-    useEffect(() => {
-
-        let existProduct = cart.filter((item) => { return item.id === newProd.id })[0];
         if (existProduct) {
-
-              existProduct = {...existProduct, totalPieces: existProduct.totalPieces + 1};
-
+            const editProd  = {...existProduct, totalPieces: existProduct.totalPieces + 1 };
+             deleteCart(existProduct.id);
+             addToCart(editProd);
+            setMsg(`Product Quantity Changed - ${editProd.totalPieces}`);
 
         } else if(Object.hasOwn(newProd, "id")) {
-
              setNewProduct(  (prevState) =>  { return prevState.totalPieces = 1 });
              addToCart(newProd);
+             setMsg("Product Added To cart Successfully");
         }
-
-
-    }, [newProd, cart, addToCart]);
-
+    }, [newProd, addToCart, deleteCart]);
 
     const handleAddToCart = (product) => {
         setNewProduct( prevState => { return {...prevState ,...product} } );
@@ -83,7 +63,7 @@ export const Home = React.memo(() => {
 
 
     return <section className={"relative grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
-        <SideFilters />
+        <SideFilters maxPrice={Math.max(...data.map((product) => { return product.price; }))} />
         <ul className={loading && !error ? "items-center p-5 col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
             {
                 error
@@ -100,7 +80,7 @@ export const Home = React.memo(() => {
             </li>
         </ul>
         {/*<Suspense fallback={null}>*/}
-        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-400"} message={"Product Added To cart Successfully"}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
+        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-500"} message={msg}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
         {/*</Suspense>*/}
     </section>
 

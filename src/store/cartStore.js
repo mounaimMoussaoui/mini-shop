@@ -4,7 +4,11 @@ import { create } from "zustand"
 export const useCartStore = create((Set) => ({
     cart: [],
     isAddingCart: false,
-    addToCart: (product) => {Set((state) => ({cart: [...state.cart, product]}))},
+
+    addToCart: (product) => {Set((state) => ({
+        cart: [...state.cart, product],
+    }))},
+
     deleteCart: (productID) => { Set((state) => ({ cart: [...state.cart.filter((product) => product.id !== productID)] } )) },
     clearCart: () => { Set(() => ({ cart: [] })) },
     decrementPiecesTotal: (productID) => { Set((state) => ({ cart: state.cart.map((product) => {

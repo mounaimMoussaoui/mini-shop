@@ -1,6 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {getCategories} from "../services/api.js";
 
-export const SideFilters = React.memo(() => {
+export const SideFilters = React.memo((maxPrice) => {
+    const [categories, setCategories] = React.useState([]);
+
+
+    useEffect(() => {
+        getCategories().then((res) => {
+            setCategories(res);
+            // setError(false);
+            // console.log(JSON.stringify(res, null, 2));
+        }).catch(() => {
+            // setError(true);
+            throw new Error("Error getting categories list");
+        });
+    }, [categories]);
+
     return  <ul className="side-filters p-4 flex flex-col flex-wrap list-none col-start-1 col-end-1 relative">
         <span className={"absolute right-0 -top-5 shadow-sm shadow-black w-[1px] h-[100vh]"}></span>
         <li className={"pb-10 relative"}>
@@ -8,20 +23,25 @@ export const SideFilters = React.memo(() => {
             <span className={"absolute bottom-[20px] left-[50%] translate-x-[-50%] w-[60px] h-[3px] bg-orange-300"}></span>
         </li>
         <li>
-            <form className="side-filters-form flex flex-col gap-4">
-                <div className={"group flex justify-between items-center"}>
-                    <label htmlFor="menCheck" className={"font-bold text-gray-600"}>Men's</label>
-                    <input type="checkbox" id="menCheck" name="filter"/>
+           <form className="side-filters-form flex flex-col gap-4">
+                <div className={"group flex flex-col gap-4"}>
+                    <label htmlFor="cat-ftr" className={"font-bold text-gray-500"}>Filter By :</label>
+                    <select name="categorie-filter" id="cat-ftr"
+                            className={"flex flex-col gap-2 py-3 px-2 rounded shadow-sm shadow-black border-none outline-none"}>
+                        <option value="" defaultValue={"Chose category :"} className={"font-bold text-gray-300"}>Chose category :</option>
+                        {
+                            categories.map(category => (
+                                <option key={category.id} value={category.name}>{category.name}</option>
+                            ))
+                        }
+                    </select>
                 </div>
-                <div className={"group flex justify-between items-center"}>
-                    <label htmlFor="womanCheck" className={"font-bold text-gray-600"}>Woman's</label>
-                    <input type="checkbox" id="womanCheck" name="filter"/>
-                </div>
-                <div className={"group flex justify-between items-center"}>
-                    <label htmlFor="childrenCheck" className={"font-bold text-gray-600"}>Children's</label>
-                    <input type="checkbox" id="childrenCheck" name="filter"/>
-                </div>
-            </form>
+               <div className={"group flex flex-col gap-4"}>
+                   <label htmlFor="price-ftr" className={"font-bold text-gray-500"}>Filter By Price</label>
+                   <input type="range" id={"price-ftr"} min={0} max={maxPrice} step={20} className={""}/>
+               </div>
+           </form>
         </li>
+
     </ul>
 });
