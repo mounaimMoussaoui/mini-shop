@@ -5,7 +5,7 @@ import {createUserWithEmailAndPassword} from "firebase/auth";
 import {signUpSchema} from "../schemas/SignUpSchema.js";
 import {MdOutlineMail} from "react-icons/md";
 import {TbLockPassword} from "react-icons/tb";
-import {MyTextField} from "../formikFields/TextField.jsx";
+import {MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {CiCircleInfo} from "react-icons/ci";
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {getProducts} from "../services/api.js";
 import {ProductCard} from "../components/ProductCard.jsx";
 import { BiCommentError } from "react-icons/bi";
@@ -37,20 +37,24 @@ export const Home = React.memo(() => {
         setStartElement( (currentPage * totalElements ) - totalElements );
     }
 
-    useEffect(  () => {
-        const existProduct = cart.find((item) => {  return item.id === newProd.id });
+
+    useEffect(() => {
+
+        let existProduct;
+        existProduct = cart.find((item) => {  return item.id === newProd.id }) || null;
 
         if (existProduct) {
             const editProd  = {...existProduct, totalPieces: existProduct.totalPieces + 1 };
              deleteCart(existProduct.id);
              addToCart(editProd);
             setMsg(`Product Quantity Changed - ${editProd.totalPieces}`);
-
         } else if(Object.hasOwn(newProd, "id")) {
              setNewProduct(  (prevState) =>  { return prevState.totalPieces = 1 });
              addToCart(newProd);
              setMsg("Product Added To cart Successfully");
         }
+
+
     }, [newProd, addToCart, deleteCart]);
 
     const handleAddToCart = (product) => {
@@ -61,9 +65,14 @@ export const Home = React.memo(() => {
         }, 1000);
     }
 
+    const maxPrice = useCallback(() => {
+        let max;
+            max = Math.max(...data.map((product) => { return product.price; }));
+       return  max;
+    }, [data])
 
     return <section className={"relative grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
-        <SideFilters maxPrice={Math.max(...data.map((product) => { return product.price; }))} />
+        <SideFilters maxPrice={maxPrice()} />
         <ul className={loading && !error ? "items-center p-5 col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
             {
                 error
