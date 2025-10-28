@@ -4,7 +4,7 @@ import {Form, Formik} from "formik";
 import {MySelect, MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {ValidationOfFilters} from "../schemas/FilterValidation.js";
 
-export const SideFilters = React.memo(({maxPrice}) => {
+export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
     const [categories, setCategories] = React.useState([]);
 
     useEffect( () => {
@@ -36,7 +36,8 @@ export const SideFilters = React.memo(({maxPrice}) => {
                 validationSchema={validation}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
+                        // alert(JSON.stringify(values, null, 2));
+                        getValuesFlr(values);
                         setSubmitting(false);
                     }, 1000);
                 }}>
@@ -57,23 +58,3 @@ export const SideFilters = React.memo(({maxPrice}) => {
 
     </ul>
 });
-
-
-{/*<form className="side-filters-form flex flex-col gap-4">*/}
-{/*     <div className={"group flex flex-col gap-4"}>*/}
-{/*         <label htmlFor="cat-ftr" className={"font-bold text-gray-500"}>Filter By :</label>*/}
-{/*         <select name="categorie-filter" id="cat-ftr"*/}
-{/*                 className={"flex flex-col gap-2 py-3 px-2 rounded shadow-sm shadow-black border-none outline-none"}>*/}
-{/*             <option value="" defaultValue={"Chose category :"} className={"font-bold text-gray-300"}>Chose category :</option>*/}
-{/*             {*/}
-{/*                 categories.map(category => (*/}
-{/*                     <option key={category.id} value={category.name}>{category.name}</option>*/}
-{/*                 ))*/}
-{/*             }*/}
-{/*         </select>*/}
-{/*     </div>*/}
-{/*    <div className={"group flex flex-col gap-4"}>*/}
-{/*        <label htmlFor="price-ftr" className={"font-bold text-gray-500"}>Filter By Price</label>*/}
-{/*        <input type="range" id={"price-ftr"} min={0} max={maxPrice} step={20} className={""}/>*/}
-{/*    </div>*/}
-{/*</form>*/}

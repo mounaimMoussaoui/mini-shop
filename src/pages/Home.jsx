@@ -18,7 +18,8 @@ export const Home = React.memo(() => {
     const { cart, isAddingCart, deleteCart, addToCart, changeAddingState } = useCartStore();
     const [newProd, setNewProduct] = React.useState({});
     const [msg, setMsg] = useState("");
-    // const [maxPrice, setMaxPrice] = React.useState(0);
+    const [filters, setFilters] = React.useState({});
+
 
     useEffect(() => {
         getProducts().then((res) => {
@@ -37,12 +38,9 @@ export const Home = React.memo(() => {
         setStartElement( (currentPage * totalElements ) - totalElements );
     }
 
-
     useEffect(() => {
-
         let existProduct;
         existProduct = cart.find((item) => {  return item.id === newProd.id }) || null;
-
         if (existProduct) {
             const editProd  = {...existProduct, totalPieces: existProduct.totalPieces + 1 };
              deleteCart(existProduct.id);
@@ -53,8 +51,6 @@ export const Home = React.memo(() => {
              addToCart(newProd);
              setMsg("Product Added To cart Successfully");
         }
-
-
     }, [newProd, addToCart, deleteCart]);
 
     const handleAddToCart = (product) => {
@@ -69,23 +65,41 @@ export const Home = React.memo(() => {
         let max;
             max = Math.max(...data.map((product) => { return product.price; }));
        return  max;
-    }, [data])
+    }, [data]);
+
+    const getValuesFlr = useCallback((values) => {
+            setFilters(prevState => {
+                return {...prevState, ...values};
+            });
+    }, []);
+
+    const getData = () => {
+        return data.filter((item) => {
+            if(filters?.ctrFlr || filters?.priceFlr) {
+                if(filters?.ctrFlr === item.category.name && filters?.priceFlr <= item.price)  {
+                    return item;
+                }
+            } else {
+                return item;
+            }
+        })
+    }
 
     return <section className={"relative grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
-        <SideFilters maxPrice={maxPrice()} />
+        <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
         <ul className={loading && !error ? "items-center p-5 col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
             {
                 error
                 ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}><BiCommentError /> Problem When Data Loading</span>
                 : loading
-                ? data.slice(startElement, currentPage).map((item) => {
+                ? getData().slice(startElement, currentPage).map((item) => {
                     return <li key={item.id}>
                         <ProductCard key={item.id} product={item} onAddToCart={(product) => {handleAddToCart(product)}} />
                     </li>
                 }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
             }
             <li className={"col-start-1 col-end-5"}>
-                { loading && !error ? <Pagination countPrd={data.length} getCurrentPage={getCurrentPage}/> : null }
+                { loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
             </li>
         </ul>
         {/*<Suspense fallback={null}>*/}
