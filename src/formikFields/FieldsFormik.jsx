@@ -10,6 +10,9 @@ export const MyTextField = ({label, children, ...props}) => {
         >{label}</label>
         <div className="relative w-full h-[50px]">
             <span className={`absolute top-[50%] left-[8px] translate-y-[-50%] text-2xl z-10 ${meta.touched && meta.error ? "text-red-500" : meta.touched ? "text-green-500" : "text-black"}`}>{children}</span>
+            {
+                props.type === "range" && (<span className={"w-[25px] h-[25px] absolute top-[0px] right-0 text-blue-300-600 font-bold text-[10px]"}>{field.value} $</span>)
+            }
             <input
                 className={`input-form${props.type !== "range" ? " py-3 px-[40px] shadow-lg rounded-sm absolute " : " "} min-w-full min-h-full transition ease-in-out focus:outline-none focus:border-b-2 ${meta.touched && meta.error ? 'focus:border-b-red-500' : meta.touched ? 'border-green-500' : 'text-black'}`}
                 {...field} {...props} />

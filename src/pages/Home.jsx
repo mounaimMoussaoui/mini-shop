@@ -74,15 +74,25 @@ export const Home = React.memo(() => {
     }, []);
 
     const getData = () => {
-        return data.filter((item) => {
-            if(filters?.ctrFlr || filters?.priceFlr) {
+        return filters?.ctrFlr === "" && filters?.priceFlr === 0 ? data : data.filter((item) => {
+
+            if(filters.ctrFlr && filters.priceFlr) {
                 if(filters?.ctrFlr === item.category.name && filters?.priceFlr <= item.price)  {
+                    return item;
+                }
+            } else if(filters?.ctrFlr) {
+                if(filters?.ctrFlr === item.category.name)  {
+                    return item;
+                }
+            } else if(filters?.priceFlr) {
+                if(filters?.priceFlr <= item.price)  {
                     return item;
                 }
             } else {
                 return item;
             }
-        })
+
+        });
     }
 
     return <section className={"relative grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
@@ -91,15 +101,19 @@ export const Home = React.memo(() => {
             {
                 error
                 ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}><BiCommentError /> Problem When Data Loading</span>
+                : getData().length === 0 ?
+                <span className={"font-bold text-2xl col-start-1 col-end-5 py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
                 : loading
                 ? getData().slice(startElement, currentPage).map((item) => {
                     return <li key={item.id}>
-                        <ProductCard key={item.id} product={item} onAddToCart={(product) => {handleAddToCart(product)}} />
+                        <ProductCard key={item.id} product={item} onAddToCart={(product) => {
+                            handleAddToCart(product)
+                        }}/>
                     </li>
                 }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
             }
             <li className={"col-start-1 col-end-5"}>
-                { loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
+                {getData().length && loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
             </li>
         </ul>
         {/*<Suspense fallback={null}>*/}
