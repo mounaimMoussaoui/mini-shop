@@ -5,15 +5,15 @@ import {useNavigate} from "react-router-dom";
 
 export const ProtectRouter = React.memo(({ children }) => {
     const { authStateManagement } = useAuthContext();
+    const { user } = authStateManagement;
     const navigate = useNavigate();
 
     useEffect(() => {
 
-        if (!authStateManagement?.user) {
+        if (!user) {
             navigate(-1);
-            return null;
         }
-    }, [authStateManagement, navigate]);
+    }, [user, navigate]);
 
     return children;
 });

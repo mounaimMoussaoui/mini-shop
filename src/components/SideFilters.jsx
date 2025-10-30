@@ -42,7 +42,7 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
                     }, 1000);
                 }}>
                 <Form className={"flex flex-col gap-4"}>
-                    <MyTextField label={"Filter By Price :"} type={"range"} id={"priceFlr"} name={"priceFlr"} min={0} max={maxPrice} step={20} />
+                    <MyTextField label={"Filter By Price :"} type={"range"} id={"priceFlr"} name={"priceFlr"} min={0} max={maxPrice} step={30} />
                     <MySelect label={"Filter By Category:"} name={"ctrFlr"} id={"ctrFlr"}>
                         <option value="" defaultValue={"Select Category"}>Select Category</option>
                         {

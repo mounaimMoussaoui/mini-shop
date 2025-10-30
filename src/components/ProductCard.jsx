@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FaCartPlus } from "react-icons/fa6";
+import "../styles/product.modu;e.scss"
 
 const formatPrice = (value) =>
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
@@ -15,9 +16,9 @@ const areEqual = (prev, next) =>
 export const ProductCard = React.memo(function ProductCard({ product, onAddToCart }) {
 
     return (
-        <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col">
+        <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col min-h-[100%]">
             <header className="w-full" aria-label={`${product.title} images carousel`}>
-                <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar w-full">
+                <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar  w-full">
                     {product.images.map((image, index) => (
                         <li key={index} className="image min-w-full snap-center">
                             <img
@@ -38,7 +39,7 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
                 </p>
             </div>
 
-            <span className="price absolute top-2 left-2 rounded-full bg-black text-white min-w-[40px] sm:min-w-[50px] p-4 flex items-center justify-center font-bold">
+            <span className="price absolute top-0 left-0 bg-black text-white min-w-[40px] sm:min-w-[50px] p-4 flex items-center justify-center font-bold">
         {formatPrice(product.price)}
       </span>
 
