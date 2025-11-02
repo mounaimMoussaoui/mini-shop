@@ -16,14 +16,14 @@ const areEqual = (prev, next) =>
 export const ProductCard = React.memo(function ProductCard({ product, onAddToCart }) {
 
     return (
-        <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col min-h-[100%]">
+        <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col min-w-full product-sizing">
             <header className="w-full" aria-label={`${product.title} images carousel`}>
-                <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar  w-full">
+                <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar min-h-[200px] bg-black w-full">
                     {product.images.map((image, index) => (
                         <li key={index} className="image min-w-full snap-center">
                             <img
                                 src={image}
-                                className="w-full h-full object-contain"
+                                className="w-full h-full object-cover"
                                 alt={`${product.title} — image ${index + 1}`}
                                 loading="lazy"
                             />
@@ -46,7 +46,7 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
             <button
                 type="button"
                 onClick={() => {onAddToCart(product);}}
-                className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-5 font-bold text-white text-md uppercase my-3 py-[15px] px-[25px] transition ease-in hover:bg-amber-600"
+                className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-5 font-bold text-white text-md uppercase my-3 py-[15px] px-[25px] transition ease-in hover:bg-amber-600 hover:scale-90"
                 role="button"
                 aria-label="Add product to cart"
             >

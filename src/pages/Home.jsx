@@ -8,6 +8,7 @@ import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus} from "react-icons/fa";
 // const AlertPopup = React.lazy(() => import("./AlertPopup.jsx"))
+import "../styles/product.modu;e.scss"
 
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
@@ -95,9 +96,9 @@ export const Home = React.memo(() => {
         });
     }
 
-    return <section className={"relative grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"}>
+    return <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
         <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
-        <ul className={loading && !error ? "items-center p-5 col-start-2 col-end-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" : "grid col-start-2 col-end-5 gap-5"}>
+        <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
             {
                 error
                 ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}><BiCommentError /> Problem When Data Loading</span>
@@ -105,14 +106,14 @@ export const Home = React.memo(() => {
                 <span className={"font-bold text-2xl col-start-1 col-end-5 py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
                 : loading
                 ? getData().slice(startElement, currentPage).map((item) => {
-                    return <li key={item.id}>
+                    return <li key={item.id} className={"product-sizing"}>
                         <ProductCard key={item.id} product={item} onAddToCart={(product) => {
                             handleAddToCart(product)
                         }}/>
                     </li>
                 }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
             }
-            <li className={"col-start-1 col-end-5"}>
+            <li className={"min-w-full"}>
                 {getData().length && loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
             </li>
         </ul>

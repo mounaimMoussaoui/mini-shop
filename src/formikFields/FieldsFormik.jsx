@@ -4,7 +4,7 @@ import React from "react";
 export const MyTextField = ({label, children, ...props}) => {
 
     const [field, meta] = useField(props);
-    return  (<>
+    return  (<div className={"w-full flex flex-col justify-center gap-2 min-w-full"}>
         <label htmlFor={props.id || props.name}
                className={"text-xl font-bold"}
         >{label}</label>
@@ -20,18 +20,18 @@ export const MyTextField = ({label, children, ...props}) => {
         {
             meta.touched && meta.error ? ( <span className={"text-sm text-red-500 "}>{meta.error}</span> ) : null
         }
-    </>)
+    </div>)
 };
 
 
 export const MySelect = ({label, ...props}) => {
     const [field, meta] = useField(props);
-    return (<>
+    return (<div className="w-full flex flex-col gap-2 justify-between min-w-full">
             <label htmlFor={props.id || props.name}
                 className={"text-xl font-bold"}
             >{label}</label>
             <select {...field} {...props} className={"w-full py-3 px-5 rounded shadow-sm shadow-black"}/>
             { meta.touched && meta.error ? ( <span className={"text-sm text-red-500"}>{meta.error}</span> ) : null }
-        </>
+        </div>
     )
 }

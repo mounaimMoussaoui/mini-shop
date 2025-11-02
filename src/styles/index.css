@@ -8,3 +8,30 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+@media (min-width: 640px) {
+    .product-sizing {
+        width: calc((100% - 20px) / 2);
+    }
+}
+
+@media (min-width:  768px) {
+    .product-sizing {
+        width: calc((100% - 40px) / 3);
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-sizing {
+        width: calc((100% - 40px) / 4);
+    }
+}
+
+@media (max-width: 640px) {
+    .filter-form-sizing::-webkit-scrollbar {
+        /*width: calc((100% - 20px) / 2);*/
+        height: 0;
+    }
+}
+
+

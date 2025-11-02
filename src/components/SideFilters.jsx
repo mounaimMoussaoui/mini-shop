@@ -20,29 +20,30 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
         return ValidationOfFilters(categoriesNames, maxPrice);
     }
 
-    return  <ul className="side-filters p-4 flex flex-col flex-wrap list-none col-start-1 col-end-1 relative">
-        <span className={"absolute right-0 -top-5 shadow-sm shadow-black w-[1px] h-[100vh]"}></span>
+    return  <ul className="side-filters p-4 flex flex-col list-none bg-white sm:min-w-[300px] shadow-sm shadow-black sm:shadow-none sm:border-r-2 ms:border-r-black">
         <li className={"pb-10 relative"}>
-            <h4 className={"font-bold text-xl block uppercase text-center"}>Side Of Filters Options</h4>
-            <span className={"absolute bottom-[20px] left-[50%] translate-x-[-50%] w-[60px] h-[3px] bg-orange-300"}></span>
+            <h4 className={"font-bold text-xl block uppercase sm:text-center"}>Side Of Filters Options</h4>
+            <span className={"absolute bottom-[20px] sm:left-[50%] sm:translate-x-[-50%] w-[60px] h-[3px] bg-orange-300"}></span>
         </li>
         <li>
             <Formik initialValues={
-                    {
-                        ctrFlr: '',
-                        priceFlr: ''
-                    }
+                {
+                    ctrFlr: '',
+                    priceFlr: ''
                 }
-                validationSchema={validation}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        // alert(JSON.stringify(values, null, 2));
-                        getValuesFlr(values);
-                        setSubmitting(false);
-                    }, 1000);
-                }}>
-                <Form className={"flex flex-col gap-4"}>
-                    <MyTextField label={"Filter By Price :"} type={"range"} id={"priceFlr"} name={"priceFlr"} min={0} max={maxPrice} step={30} />
+            }
+                    validationSchema={validation}
+                    onSubmit={(values, {setSubmitting}) => {
+                        setTimeout(() => {
+                            getValuesFlr(values);
+                            setSubmitting(false);
+                        }, 1000);
+                    }}>
+                <Form
+                    id={"filter-form"}
+                    className={"filter-form-sizing flex gap-5 p-4 justify-between items-end overflow-hidden overflow-x-scroll sm:overflow-hidden sm:flex-col sm:gap-4"}>
+                    <MyTextField label={"Filter By Price :"} type={"range"} id={"priceFlr"} name={"priceFlr"} min={0}
+                                 max={maxPrice} step={30}/>
                     <MySelect label={"Filter By Category:"} name={"ctrFlr"} id={"ctrFlr"}>
                         <option value="" defaultValue={"Select Category"}>Select Category</option>
                         {
@@ -51,9 +52,14 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
                             ))
                         }
                     </MySelect>
-                    <button type={"submit"} className={"w-full py-3 px-5 shadow-lg bg-orange-600 rounded text-white font-bold"}>Filter</button>
                 </Form>
             </Formik>
+
+            <button type={"submit"}
+                    form={"filter-form"}
+                    className={"block py-3 px-5 shadow-lg bg-orange-600 rounded text-white font-bold sm:ml-auto sm:w-full transition ease-in-out scale-90 hover:scale-100"}>Filter
+            </button>
+
         </li>
 
     </ul>
