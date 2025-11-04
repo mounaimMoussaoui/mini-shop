@@ -48,6 +48,15 @@ cp .env.example .env
 npm run dev
 ________________________________________
 🔐 Environment Variables
+Create a .env file at the root:
+VITE_APP_API_KEY_FIREBASE=your-firebase-api-key
+VITE_APP_AUTH_DOMAIN_FIREBASE=your-firebase-auth-domain
+VITE_APP_PROJECT_ID_FIREBASE=your-firebase-project-id
+VITE_APP_STORAGE_BUCKET_FIREBASE=your-firebase-storage
+VITE_APP_MESSAGING_SENDER_ID=your-sender-id
+VITE_APP_APP_ID=your-app-id
+VITE_APP_MEASUREMENT_ID=your-measurement-id
+VITE_APP_API_BASEURL="https://api.escuelajs.co/api/v1"
 ________________________________________
 🚢 Deployment
 Deploy to Vercel
