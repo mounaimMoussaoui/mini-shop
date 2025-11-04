@@ -11,7 +11,7 @@ export const ProtectRouter = React.memo(({ children }) => {
     useEffect(() => {
 
         if (!user) {
-            navigate(-1);
+            navigate("/login");
         }
     }, [user, navigate]);
 

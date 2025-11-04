@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {IoCartSharp, IoCreateOutline, IoHome, IoLogIn} from "react-icons/io5";
 import {CgProfile} from "react-icons/cg";
-import {FaBars} from "react-icons/fa6";
+import {FaBars} from "react-icons/fa";
 import {useCartStore} from "../store/cartStore.js";
 import {useAuthContext} from "../authMangment/AuthContext.js";
 import { MdLogout } from "react-icons/md";

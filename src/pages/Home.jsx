@@ -8,7 +8,7 @@ import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus} from "react-icons/fa";
 // const AlertPopup = React.lazy(() => import("./AlertPopup.jsx"))
-import "../styles/product.modu;e.scss"
+import "../styles/product.module.scss"
 
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
@@ -101,9 +101,9 @@ export const Home = React.memo(() => {
         <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
             {
                 error
-                ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl col-start-1 col-end-5"}><BiCommentError /> Problem When Data Loading</span>
+                ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
                 : getData().length === 0 ?
-                <span className={"font-bold text-2xl col-start-1 col-end-5 py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
+                <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
                 : loading
                 ? getData().slice(startElement, currentPage).map((item) => {
                     return <li key={item.id} className={"product-sizing"}>

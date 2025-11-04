@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {useCartStore} from "../store/cartStore.js";
-import {FaCirclePlus, FaCircleMinus, FaTrash} from "react-icons/fa6"
+import {FaMinusCircle, FaPlusCircle, FaTrash} from "react-icons/fa"
 import {FaCheckCircle} from "react-icons/fa";
 import { IoIosRemoveCircle } from "react-icons/io";
 import {AlertPopup} from "./AlertPopup.jsx";
@@ -65,7 +65,7 @@ export const Cart = React.memo(() => {
                                         <button type={"button"} onClick={() => {
                                             handleChangePiecesDecrement(item.id)
                                         }} className={"rounded-full w-[25px] h-[25px] relative overflow-hidden"}>
-                                            <FaCircleMinus
+                                            <FaMinusCircle
                                                 className={"absolute top-0 left-0 w-[100%] h-[100%] transition ease-in hover:scale-75"}/>
                                         </button>
                                         <input type="text" id={"totalProducts"}
@@ -77,7 +77,7 @@ export const Cart = React.memo(() => {
                                         <button type={"button"} onClick={() => {
                                             handleChangePiecesIncrement(item.id)
                                         }} className={"rounded-full w-[25px] h-[25px] relative overflow-hidden"}>
-                                            <FaCirclePlus
+                                            <FaPlusCircle
                                                 className={" absolute top-0 left-0 w-[100%] h-[100%] transition ease-in hover:scale-75"}/>
                                         </button>
                                     </label>

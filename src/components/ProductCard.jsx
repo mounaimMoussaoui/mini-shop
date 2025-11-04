@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FaCartPlus } from "react-icons/fa6";
-import "../styles/product.modu;e.scss"
+import { FaCartPlus } from "react-icons/fa";
+import "../styles/product.module.scss"
 
 const formatPrice = (value) =>
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
