@@ -37,6 +37,10 @@ export const Cart = React.memo(() => {
         clearCart();
     }, [clearCart]);
 
+    const handleCheckOut = useCallback(() => {
+        console.log("Check Out");
+    }, []);
+
     return <div className="cart p-5 relative">
         <h1 className={"py-5 uppercase text-xl font-bold"}>Your Cart Products</h1>
         {
@@ -111,7 +115,7 @@ export const Cart = React.memo(() => {
                                     className={"py-2 px-6 bg-red-600 flex items-center justify-between rounded text-white font-bold gap-4 shadow-lg transition ease-in-out hover:scale-90"}>
                                 CLear Cart <FaTrash className={"text-white"}/>
                             </button>
-                            <button type={"button"}
+                            <button type={"button"} onClick={handleCheckOut}
                                     className={"py-2 px-6 bg-green-600 flex items-center justify-between rounded text-white font-bold gap-4 shadow-lg transition ease-in-out hover:scale-90"}>
                                 Buy Cart <FaCheckCircle className={"text-white"}/>
                             </button>

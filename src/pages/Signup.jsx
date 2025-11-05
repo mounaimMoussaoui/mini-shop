@@ -8,6 +8,7 @@ import {TbLockPassword} from "react-icons/tb";
 import {MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {CiCircleInfo} from "react-icons/ci";
+import {useNavigate} from "react-router-dom";
 
 export const Signup = React.memo(() => {
     const [signUp, setSignUp] = React.useState({
@@ -15,6 +16,7 @@ export const Signup = React.memo(() => {
         error: false,
         message: "",
     });
+    const navigate = useNavigate();
 
     const handleSubmit = useCallback((values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password).then((res) => {
@@ -26,8 +28,8 @@ export const Signup = React.memo(() => {
                     message: "Sign up Completed Successfully"
                 }
             });
+            navigate("/login");
         }).catch((rej) => {
-            console.error(rej.message);
             setSignUp((prevState) => {
                 return {
                     ...prevState,

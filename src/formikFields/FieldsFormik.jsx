@@ -8,7 +8,7 @@ export const MyTextField = ({label, children, ...props}) => {
         <label htmlFor={props.id || props.name}
                className={"text-xl font-bold"}
         >{label}</label>
-        <div className="relative w-full h-[50px]">
+        <div className="relative w-full h-[50px] z-[1]">
             <span className={`absolute top-[50%] left-[8px] translate-y-[-50%] text-2xl z-10 ${meta.touched && meta.error ? "text-red-500" : meta.touched ? "text-green-500" : "text-black"}`}>{children}</span>
             {
                 props.type === "range" && (<span className={"absolute top-[0px] right-0 text-blue-300-600 font-bold text-[10px]"}>{field.value || 0} $</span>)

@@ -31,6 +31,14 @@ export const Home = React.memo(() => {
             throw new Error("Error getting products list");
         });
         setTimeout(() => setLoading(true), 500);
+
+        fetch('/.netlify/functions/getData').then((response) => {
+            if (!response.ok) {
+                return response.json();
+            }
+            console.log(JSON.stringify(response, null, 2));
+        });
+
     }, []);
 
     const getCurrentPage = (currentPage) => {
