@@ -7,6 +7,23 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+async function initFirebase() {
+    const response = await fetch("/.netlify/functions/getFirebaseConfig");
+    const { apiKey, authDomain, projectId } = await response.json();
+
+    const firebaseConfig = {
+        apiKey,
+        authDomain,
+        projectId
+    };
+
+    initializeApp(firebaseConfig);
+}
+
+
+console.log(initFirebase());
+
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APP_API_KEY_FIREBASE,
     authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN_FIREBASE,

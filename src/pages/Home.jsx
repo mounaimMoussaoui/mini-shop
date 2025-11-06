@@ -7,7 +7,6 @@ import {SideFilters} from "../components/SideFilters.jsx";
 import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus} from "react-icons/fa";
-// const AlertPopup = React.lazy(() => import("./AlertPopup.jsx"))
 import "../styles/product.module.scss"
 
 export const Home = React.memo(() => {
@@ -32,14 +31,8 @@ export const Home = React.memo(() => {
         });
         setTimeout(() => setLoading(true), 500);
 
-        fetch('/.netlify/functions/getData').then((response) => {
-            if (!response.ok) {
-                return response.json();
-            }
-            console.log(JSON.stringify(response, null, 2));
-        });
-
     }, []);
+
 
     const getCurrentPage = (currentPage) => {
         const totalElements = 12;
