@@ -1,11 +1,12 @@
 export default async () => {
-    const apiKey = process.env.VITE_APP_API_KEY_FIREBASE;
-    const authDomain = process.env.VITE_APP_AUTH_DOMAIN_FIREBASE;
-    const projectId = process.env.VITE_APP_PROJECT_ID_FIREBASE;
-    const storageBucket = process.env.VITE_APP_STORAGE_BUCKET_FIREBASE;
-    const messagingSenderId = process.env.VITE_APP_MESSAGING_SENDER_ID;
-    const appId = process.env.VITE_APP_APP_ID;
-    const measurementId = process.env.VITE_APP_MEASUREMENT_ID;
+    const apiKey = process.env.FIREBASE_API_KEY;
+    const authDomain = process.env.FIREBASE_AUTH_DOMAIN;
+    const projectId = process.env.FIREBASE_PROJECT_ID;
+    const storageBucket = process.env.FIREBASE_STORAGE_BUCKET;
+    const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID;
+    const appId = process.env.FIREBASE_APP_ID;
+    const measurementId = process.env.FIREBASE_MEASUREMENT_ID;
+
 
 
     return new Response(JSON.stringify({
