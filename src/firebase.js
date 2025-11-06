@@ -10,12 +10,22 @@ import { getAuth } from "firebase/auth";
 
 async function initFirebase() {
     const response = await fetch("/.netlify/functions/getFirebaseConfig");
-    const { apiKey, authDomain, projectId } = await response.json();
+    const {  apiKey,
+        authDomain,
+        projectId,
+        storageBucket,
+        messagingSenderId,
+        appId,
+        measurementId } = await response.json();
 
     const firebaseConfig = {
         apiKey,
         authDomain,
-        projectId
+        projectId,
+        storageBucket,
+        messagingSenderId,
+        appId,
+        measurementId,
     };
 
     initializeApp(firebaseConfig);
@@ -24,15 +34,27 @@ async function initFirebase() {
 
 console.log(initFirebase());
 
-const firebaseConfig = {
-    apiKey: import.meta.env.VITE_APP_API_KEY_FIREBASE,
-    authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN_FIREBASE,
-    projectId: import.meta.env.VITE_APP_PROJECT_ID_FIREBASE,
-    storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET_FIREBASE,
-    messagingSenderId: import.meta.env.VITE_APP_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_APP_APP_ID,
-    measurementId: import.meta.env.VITE_APP_MEASUREMENT_ID,
-};
+
+// const firebaseConfig = {
+//     apiKey: import.meta.env.VITE_APP_API_KEY_FIREBASE,
+//     authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN_FIREBASE,
+//     projectId: import.meta.env.VITE_APP_PROJECT_ID_FIREBASE,
+//     storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET_FIREBASE,
+//     messagingSenderId: import.meta.env.VITE_APP_MESSAGING_SENDER_ID,
+//     appId: import.meta.env.VITE_APP_APP_ID,
+//     measurementId: import.meta.env.VITE_APP_MEASUREMENT_ID,
+// };
+
+
+// const firebaseConfig = {
+//     apiKey: import.meta.env.VITE_APP_API_KEY_FIREBASE,
+//     authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN_FIREBASE,
+//     projectId: import.meta.env.VITE_APP_PROJECT_ID_FIREBASE,
+//     storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET_FIREBASE,
+//     messagingSenderId: import.meta.env.VITE_APP_MESSAGING_SENDER_ID,
+//     appId: import.meta.env.VITE_APP_APP_ID,
+//     measurementId: import.meta.env.VITE_APP_MEASUREMENT_ID,
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
