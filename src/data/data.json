@@ -1,0 +1,38 @@
+{
+    "products": [
+      {
+        "id": 100,
+        "title": "product for man",
+        "description": "desc: product for multiples usage and can broad your cats and jam's not a proved for children",
+        "price": 200.99,
+        "images": [
+          "asserts/react.svg",
+          "asserts/react.svg",
+          "asserts/react.svg"
+        ]
+      },
+      {
+        "id": 200,
+        "title": "product for man",
+        "description": "desc: product for multiples usage and can broad your cats and jam's not a proved for children",
+        "price": 200.99,
+        "images": [
+          "asserts/react.svg",
+          "asserts/react.svg",
+          "asserts/react.svg"
+        ]
+      },
+      {
+        "id": 300,
+        "title": "product for man",
+        "description": "desc: product for multiples usage and can broad your cats and jam's not a proved for children",
+        "price": 200.99,
+        "images": [
+          "asserts/react.svg",
+          "asserts/react.svg",
+          "asserts/react.svg"
+        ]
+      }
+
+    ]
+}
