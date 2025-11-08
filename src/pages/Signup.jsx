@@ -19,8 +19,7 @@ export const Signup = React.memo(() => {
     const navigate = useNavigate();
 
     const handleSubmit = useCallback((values) => {
-        createUserWithEmailAndPassword(auth, values.email, values.password).then((res) => {
-            console.log(res);
+        createUserWithEmailAndPassword(auth, values.email, values.password).then(() => {
             setSignUp((prevState) => {
                 return {
                 ...prevState,

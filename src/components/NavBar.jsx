@@ -20,7 +20,6 @@ export const NavBar = React.memo(() => {
         } else {
             setLogin(false)
         }
-        // console.log(authStateManagement);
     }, [authStateManagement]);
 
     const activeLink = useCallback(({isActive}) => {
@@ -32,8 +31,8 @@ export const NavBar = React.memo(() => {
         setIsMenuOpen(!isMenuOpen);
     }, [isMenuOpen]);
 
-    const handleAuthClick = useCallback(() => {
-        logout();
+    const handleAuthClick = useCallback(async () => {
+        await logout();
         navigate(-1);
     }, [logout, navigate]);
 
