@@ -1,16 +1,12 @@
-// Import the functions you need from the SDKs you need
-import {initializeApp} from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import {getAuth} from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "firebase/app";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// import {} from ""
 
 
-async function initFirebase() {
-    const response = await fetch("/.netlify/functions/getFirebaseConfig");
+export default async function initFirebase() {
+    // /.netlify/functions/getFirebaseConfig
+    const response = await fetch("../netlify/functions/getFirebaseConfig.js");
     const {  apiKey,
         authDomain,
         projectId,
@@ -29,10 +25,18 @@ async function initFirebase() {
         measurementId,
     };
 
-    return initializeApp(firebaseConfig);
+    // console.log(firebaseConfig);
+
+    return getAuth(initializeApp(firebaseConfig));
 }
 
 
-const app = initFirebase();
 
-export const auth = getAuth(app);
+
+// const app = initFirebase().then((res) => {
+//     console.log(res.json());
+//     return res.json();
+// });
+//
+// export const auth = getAuth(app);
+// export default initFirebase;

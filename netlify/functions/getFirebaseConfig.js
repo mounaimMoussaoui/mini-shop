@@ -1,4 +1,13 @@
 export default async () => {
+    // const apiKey = import.meta.env.FIREBASE_API_KEY;
+    // const authDomain =import.meta.FIREBASE_AUTH_DOMAIN;
+    // const projectId = import.meta.FIREBASE_PROJECT_ID;
+    // const storageBucket = import.meta.env.FIREBASE_STORAGE_BUCKET;
+    // const messagingSenderId = import.meta.env.FIREBASE_MESSAGING_SENDER_ID;
+    // const appId = import.meta.env.FIREBASE_APP_ID;
+    // const measurementId = import.meta.env.FIREBASE_MEASUREMENT_ID;
+
+
     const apiKey = process.env.FIREBASE_API_KEY;
     const authDomain = process.env.FIREBASE_AUTH_DOMAIN;
     const projectId = process.env.FIREBASE_PROJECT_ID;
