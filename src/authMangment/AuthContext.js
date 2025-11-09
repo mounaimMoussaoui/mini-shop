@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { auth } from "../firebase.js";
+import {auth} from "../firebase.js";
 import { signOut } from "firebase/auth";
+
 
 export const useAuthContext = create((set) => ({
     authStateManagement: {},

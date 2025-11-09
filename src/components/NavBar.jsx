@@ -33,7 +33,7 @@ export const NavBar = React.memo(() => {
 
     const handleAuthClick = useCallback(async () => {
         await logout();
-        navigate(-1);
+        navigate("/login");
     }, [logout, navigate]);
 
     return <nav role="navigation" aria-label="Main navigation" className="flex items-center gap-5 p-5 bg-white z-10 shadow-sm shadow-black h-[90px] sticky top-0">
@@ -55,7 +55,10 @@ export const NavBar = React.memo(() => {
                 <NavLink to="/profile" className={activeLink}> <CgProfile/> Profile</NavLink>
             </li>
             <li>
-                <NavLink to="/signup" className={activeLink}><IoCreateOutline/> Signup</NavLink>
+                {
+                    login ? null
+                          :  <NavLink to="/signup" className={activeLink}><IoCreateOutline/> Signup</NavLink>
+                }
             </li>
             {/*<li>*/}
             {/*    <NavLink to="/formFormik" className={activeLink}><IoCreateOutline/> Form Formik</NavLink>*/}
@@ -63,8 +66,8 @@ export const NavBar = React.memo(() => {
             <li>
                 {
                     login ? <button className={"py-1 px-5 rounded bg-black text-white flex gap-2 items-center"}
-                                    onClick={handleAuthClick}><MdLogout className={"text-white"}/> Logout</button>
-                        : <NavLink to="/login" className={activeLink}><IoLogIn/> Login</NavLink>
+                                    onClick={handleAuthClick}><MdLogout className={"text-white"}/>Logout</button>
+                           : <NavLink to="/login" className={activeLink}><IoLogIn/> Login</NavLink>
                 }
             </li>
         </ul>

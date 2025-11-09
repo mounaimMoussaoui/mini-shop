@@ -1,24 +1,15 @@
-export default async () => {
-    const apiKey = process.env.FIREBASE_API_KEY;
-    const authDomain = process.env.FIREBASE_AUTH_DOMAIN;
-    const projectId = process.env.FIREBASE_PROJECT_ID;
-    const storageBucket = process.env.FIREBASE_STORAGE_BUCKET;
-    const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID;
-    const appId = process.env.FIREBASE_APP_ID;
-    const measurementId = process.env.FIREBASE_MEASUREMENT_ID;
-
-
-
-    return new Response(JSON.stringify({
-        apiKey,
-        authDomain,
-        projectId,
-        storageBucket,
-        messagingSenderId,
-        appId,
-        measurementId,
-    }), {
-        headers: { "Content-Type": "application/json" }
-    });
-};
-
+export async function handler() {
+    const config = {
+        apiKey: process.env.FIREBASE_API_KEY,
+        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+        appId: process.env.FIREBASE_APP_ID,
+        measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+    };
+    return {
+        statusCode: 200,
+        body: JSON.stringify(config)
+    };
+}
