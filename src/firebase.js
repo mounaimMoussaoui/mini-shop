@@ -14,7 +14,7 @@ import { initializeApp } from "firebase/app";
 // import { initializeApp } from "firebase/app";
 
 export async function initFirebase() {
-    const response = await fetch("/.netlify/functions/getFirebaseConfig");
+    const response = await fetch("../netlify/functions/getFirebaseConfig");
     const config = await response.json();
     return initializeApp(config);
 }
