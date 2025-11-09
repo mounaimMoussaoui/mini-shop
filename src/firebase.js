@@ -1,7 +1,7 @@
 import {getAuth} from "firebase/auth";
 
-// import { initializeApp } from "firebase/app";
-//
+import { initializeApp } from "firebase/app";
+
 // const firebaseConfig = {
 //     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 //     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -11,16 +11,20 @@ import {getAuth} from "firebase/auth";
 //     appId: import.meta.env.VITE_FIREBASE_APP_ID,
 // };
 
-import { initializeApp } from "firebase/app";
+// import { initializeApp } from "firebase/app";
 
 export async function initFirebase() {
-    const response = await fetch("../netlify/functions/getFirebaseConfig.js");
+    const response = await fetch("/.netlify/functions/getFirebaseConfig");
     const config = await response.json();
     return initializeApp(config);
 }
 
 
-const app = initFirebase();
+ initFirebase().then((firebase) => {
+     console.log(firebase);
+ });
+
+const app = initializeApp();
 
 
 export const auth = getAuth(app);
