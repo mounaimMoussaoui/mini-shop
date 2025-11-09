@@ -1,5 +1,9 @@
 import React, {useCallback} from "react";
-import {auth} from "../firebase.js";
+
+
+// import {auth} from "../firebase.js";
+
+
 import {Form, Formik} from "formik";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {signUpSchema} from "../schemas/SignUpSchema.js";
@@ -19,7 +23,7 @@ export const Signup = React.memo(() => {
     const navigate = useNavigate();
 
     const handleSubmit = useCallback((values) => {
-        createUserWithEmailAndPassword(auth, values.email, values.password).then(() => {
+        createUserWithEmailAndPassword(null, values.email, values.password).then(() => {
             setSignUp((prevState) => {
                 return {
                 ...prevState,

@@ -1,5 +1,11 @@
 import React from "react";
-import { auth  } from "../firebase.js";
+
+
+// import { auth  } from "../firebase.js";
+import initFirebase from "../firebase.js";
+
+
+
 import { Form, Formik } from "formik";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { LoginSchema } from "../schemas/LoginSchema.js";
@@ -17,6 +23,10 @@ export const Login = React.memo(() => {
     const navigate  = useNavigate();
     const [message, setMessage] = React.useState({});
 
+    initFirebase().then((res) => {
+        console.log(res);
+    })
+
     return <>
         <h1 className={"text-5xl font-bold w-fit mx-auto mt-5"}>Login</h1>
         <Formik
@@ -26,7 +36,7 @@ export const Login = React.memo(() => {
         }}
         validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
-            signInWithEmailAndPassword(auth, values.email, values.password).then( (res) => {
+            signInWithEmailAndPassword(null, values.email, values.password).then( (res) => {
                 addLogin(res.user);
                 navigate("/profile");
                 setLogin(true);
