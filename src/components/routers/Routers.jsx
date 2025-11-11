@@ -33,6 +33,10 @@ export const AppRouterProvider = React.memo(() => {
                     path: "/cart",
                     element: <Cart />
                 },
+                // {
+                //     path: "/formFormik",
+                //     element: <Form />
+                // },
                 {
                     path: "/profile",
                     element: <ProtectRouter> <Profile /> </ProtectRouter>
@@ -51,7 +55,3 @@ export const AppRouterProvider = React.memo(() => {
 
 
 
-// {
-//     path: "/formFormik",
-//         element: <Form />
-// },

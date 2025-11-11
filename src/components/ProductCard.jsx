@@ -16,7 +16,7 @@ const areEqual = (prev, next) =>
 export const ProductCard = React.memo(function ProductCard({ product, onAddToCart }) {
 
     return (
-        <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col min-w-full product-sizing">
+        <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col min-h-full min-w-full product-sizing">
             <header className="w-full" aria-label={`${product.title} images carousel`}>
                 <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar min-h-[200px] bg-black w-full">
                     {product.images.map((image, index) => (

@@ -97,30 +97,31 @@ export const Home = React.memo(() => {
         });
     }
 
-    return <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
-        <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
-        <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
-            {
-                error
-                ? <span className={"font-bold py-5 sm:text-3xl flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
-                : getData().length === 0 ?
-                <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
-                : loading
-                ? getData().slice(startElement, currentPage).map((item) => {
-                    return <li key={item.id} className={"product-sizing"}>
-                        <ProductCard key={item.id} product={item} onAddToCart={(product) => {
-                            handleAddToCart(product)
-                        }}/>
+    return <>
+            <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
+                <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
+                <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
+                    {
+                        error
+                        ? <span className={"font-bold py-5 sm:text-3xl w-full flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
+                        : getData().length === 0 ?
+                        <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
+                        : loading
+                        ? getData().slice(startElement, currentPage).map((item) => {
+                            return <li key={item.id} className={"product-sizing"}>
+                                <ProductCard key={item.id} product={item} onAddToCart={(product) => {
+                                    handleAddToCart(product)
+                                }}/>
+                            </li>
+                        }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
+                    }
+                    <li className={"min-w-full"}>
+                        {getData().length && getData().length > 12 && loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
                     </li>
-                }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
-            }
-            <li className={"min-w-full"}>
-                {getData().length && loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
-            </li>
-        </ul>
-        {/*<Suspense fallback={null}>*/}
-        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-500"} message={msg}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
-        {/*</Suspense>*/}
-    </section>
-
+                </ul>
+            </section>
+            {/*<Suspense fallback={null}>*/}
+            { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-500"} message={msg}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
+            {/*</Suspense>*/}
+    </>
 });

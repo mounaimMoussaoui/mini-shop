@@ -65,17 +65,26 @@
 //                placeholder={"@user, Josef"}
 //                className={"shadow-sm shadow-black py-3 px-5"}/>
 //
+//         {
+//             formik.errors.username && formik.touched.username ? <span className={"text-red-500 text-sm"}>{formik.errors.username}</span> : null
+//         }
 //
 //         <label htmlFor={"email"}>Email:</label>
 //         <input type="email" id={"email"} {...formik.getFieldProps('email')}
 //                placeholder={"x455xSS@gmail.com"}
 //                className={"shadow-sm shadow-black py-3 px-5"}/>
+//         {
+//             formik.errors.email && formik.touched.email? <span className={"text-red-500 text-sm"}>{formik.errors.email}</span> : null
+//         }
 //
 //         <label htmlFor={"password"}>Password:</label>
 //         <input type="password" id={"password"} {...formik.getFieldProps('password')}
 //                placeholder={'********'}
 //                className={"shadow-sm shadow-black py-3 px-5"}/>
 //
+//         {
+//             formik.errors.password && formik.touched.password ? <span className={"text-red-500 text-sm"}>{formik.errors.password}</span> : null
+//         }
 //
 //         <button type={"submit"} className={"py-3 px-5 bg-black text-white font-bold rounded"}>Send</button>
 //     </form>

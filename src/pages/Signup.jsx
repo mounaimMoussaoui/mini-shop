@@ -18,16 +18,18 @@ export const Signup = React.memo(() => {
     });
     const navigate = useNavigate();
 
-    const handleSubmit = useCallback((values) => {
-        createUserWithEmailAndPassword(auth, values.email, values.password).then(() => {
-            setSignUp((prevState) => {
-                return {
-                ...prevState,
-                    completed: true,
-                    message: "Sign up Completed Successfully"
-                }
-            });
-            navigate("/login");
+    const handleSubmit = useCallback( (values) => {
+        createUserWithEmailAndPassword(auth, values.email, values.password).then(  () => {
+              setSignUp( (prevState) => {
+                  return ({
+                      ...prevState,
+                      completed: true,
+                      message: "Sign up Completed Successfully"
+                  });
+              });
+            setTimeout(() => {
+                navigate("/login");
+            }, 1500)
         }).catch((rej) => {
             setSignUp((prevState) => {
                 return {
