@@ -7,7 +7,8 @@ import {NotFound} from "../../pages/NotFound.jsx";
 import {Login} from "../../pages/Login.jsx";
 import {Signup} from "../../pages/Signup.jsx";
 import {MainLayout} from "../../layouts/MainLayout.jsx";
-import {ProtectRouter} from "../../hooks/ProtectRouter.jsx";
+import {ProtectRouter} from "../../utilities/ProtectRouter.jsx";
+import {CheckoutForm} from "../../pages/CheckoutForm.jsx";
 // import {Form} from "../../pages/FormFormik.jsx";
 
 
@@ -32,6 +33,10 @@ export const AppRouterProvider = React.memo(() => {
                 {
                     path: "/cart",
                     element: <Cart />
+                },
+                {
+                    path: "/checkoutForm",
+                    element: <ProtectRouter> <CheckoutForm /> </ProtectRouter>
                 },
                 // {
                 //     path: "/formFormik",

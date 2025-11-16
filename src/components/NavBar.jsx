@@ -6,6 +6,7 @@ import {FaBars} from "react-icons/fa";
 import {useCartStore} from "../store/cartStore.js";
 import {useAuthContext} from "../authMangment/AuthContext.js";
 import { MdLogout } from "react-icons/md";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 export const NavBar = React.memo(() => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -66,6 +67,11 @@ export const NavBar = React.memo(() => {
             </li>
             {/*<li>*/}
             {/*    <NavLink to="/formFormik" className={activeLink}><IoCreateOutline/> Form Formik</NavLink>*/}
+            {/*</li>*/}
+            {/*<li>*/}
+            {/*    <NavLink to={"/checkoutForm"} className={activeLink} hidden={true}>*/}
+            {/*        <MdOutlineShoppingCartCheckout />*/}
+            {/*    </NavLink>*/}
             {/*</li>*/}
             <li>
                 {

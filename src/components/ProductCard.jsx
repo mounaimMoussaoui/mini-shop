@@ -20,7 +20,7 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
             <header className="w-full" aria-label={`${product.title} images carousel`}>
                 <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar min-h-[200px] bg-black w-full">
                     {product.images.map((image, index) => (
-                        <li key={index} className="image min-w-full snap-center">
+                        <li key={index} className="image min-w-full snap-center max-h-[200px]">
                             <img
                                 src={image}
                                 className="w-full h-full object-cover"
@@ -46,7 +46,7 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
             <button
                 type="button"
                 onClick={() => {onAddToCart(product);}}
-                className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-5 font-bold text-white text-md uppercase my-3 py-[15px] px-[25px] transition ease-in hover:bg-amber-600 hover:scale-90"
+                className="btn bg-amber-500 rounded mx-auto mt-auto flex items-center justify-center gap-x-2 lg:gap-x-5 font-bold text-white text-sm lg:text-md text-nowrap uppercase my-3 py-[10px] px-[15px] lg:py-[15px] lg:px-[25px] transition ease-in hover:bg-amber-600 hover:scale-90"
                 role="button"
                 aria-label="Add product to cart"
             >
