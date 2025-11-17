@@ -1,11 +1,9 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import { useCartStore } from "../store/cartStore.js";
 import { FaMinusCircle, FaPlusCircle, FaTrash } from "react-icons/fa"
 import { FaCheckCircle } from "react-icons/fa";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { AlertPopup } from "./AlertPopup.jsx";
-import { auth, collection, addDoc, db } from "../firebase.js";
-import { onAuthStateChanged } from "firebase/auth";
 // import useLocalStorage from "../customsHooks/useLocalStorage.jsx";
 import {useNavigate} from "react-router-dom";
 // import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -13,7 +11,6 @@ import {useNavigate} from "react-router-dom";
 
 export const Cart = React.memo(() => {
     const {cart, isAddingCart, deleteCart, clearCart, decrementPiecesTotal, incrementPiecesTotal, changeAddingState} = useCartStore();
-    const [userAuth, setUserAuth] = React.useState(null);
     const navigate = useNavigate();
     // const [storedCart, setStoredCart] = useLocalStorage("cartItemsStored", []);
 
@@ -46,23 +43,6 @@ export const Cart = React.memo(() => {
     }, [clearCart]);
 
     /***********************************************************************************************************/
-    const authCatchChanges = (user) => {
-        if(!user)
-            return 0;
-
-        if (user) {
-            console.log("User signed in:", user.uid);
-            setUserAuth(user);
-        } else {
-            console.log("No user is signed in.");
-        }
-    };
-
-    useEffect(() => {
-        // Get SignedIn User
-        onAuthStateChanged(auth, authCatchChanges);
-    }, []);
-
 
     // useEffect(() => {
     //     setStoredCart(cart);
@@ -70,45 +50,10 @@ export const Cart = React.memo(() => {
 
     /***********************************************************************************************************************************************************/
 
-    const saveCheckout = async (checkoutData) => {
-        try {
-            console.log("Saving checkout data: ", checkoutData); // Log the data being passed in
-
-            // Create a new document in the 'checkouts' collection
-            const docRef = await addDoc(collection(db, ""));
-
-            console.log("Saving logic!!!!!!!!!!", docRef.id);
-
-        } catch (error) {
-            console.error('Error saving checkout: ', error);
-        }
-    };
-
 
     const handleCheckOut = useCallback(async () => {
         navigate("/checkoutForm");
-
-        const checkoutData = {
-            userID: userAuth.uid,
-            fullName: "xFlan",
-            items: [
-                ...cart.map(item => item),
-            ],
-            total: cart.reduce((acc, item) => { return  acc + item.totalPieces }, 0),
-            shippingAddress: {
-                street: '123 Main St',
-                city: 'City-name',
-                state: 'State',
-                postalCode: '12345',
-                country: 'Country'
-            }
-        };
-        //
-        // // console.log(JSON.stringify(checkoutData));
-        await saveCheckout(checkoutData);
-
-
-    }, [navigate, cart, userAuth]);
+    }, [navigate]);
 
     const getDataCart = () => {
         // return storedCart.length ? storedCart : cart.length ? cart : [];

@@ -41,10 +41,10 @@ export const Login = React.memo(() => {
         }}
         >
             <Form className={"flex flex-col gap-4 max-w-[500px] mx-auto mt-[50px]"}>
-                <MyTextField type={"email"} id="emailField" label="Email" name={"email"} placeholder={"email@example.com"} >
+                <MyTextField type={"email"} id="emailField" label="Email" autoComplete={"email-user"} name={"email"} placeholder={"email@example.com"} >
                     <MdOutlineMail />
                 </MyTextField>
-                <MyTextField type={"password"} id="passwordField" label="Password" name={"password"} placeholder={"********"}>
+                <MyTextField type={"password"} id="passwordField" label="Password" autoComplete={"current-password"} name={"password"} placeholder={"********"}>
                     <TbLockPassword />
                 </MyTextField>
                 <button type={"submit"}

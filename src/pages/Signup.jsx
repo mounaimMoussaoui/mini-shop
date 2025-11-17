@@ -64,8 +64,10 @@ export const Signup = React.memo(() => {
         }}>
             <Form className={"mt-[100px] max-w-[500px] mx-auto form flex flex-col gap-4"}>
                 <MyTextField type={"email"} id={"email"} name={"email"} placeholder={"example@gmail.com"}
+                             autoComplete="email"
                              label={"Email :"}><MdOutlineMail/> </MyTextField>
                 <MyTextField type={"password"} id={"password"} name={"password"} placeholder={"********"}
+                             autoComplete="current-password"
                              label={"Password :"}> <TbLockPassword/> </MyTextField>
                 <button type={"submit"} className={"px-5 py-3 bg-black w-full rounded text-white font-bold"}>Submit
                 </button>

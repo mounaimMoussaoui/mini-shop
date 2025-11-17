@@ -1,12 +1,72 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import {Formik, Form} from "formik";
 import {CheckoutValidation} from "../schemas/checkoutValidation.js";
 import {MySelect, MyTextField} from "../formikFields/FieldsFormik.jsx";
 import { MdPermIdentity, MdStreetview, MdShoppingCartCheckout  } from "react-icons/md";
 import { TbHttpPost, TbBuildingEstate  } from "react-icons/tb";
+import {addDoc, auth, collection, db} from "../firebase.js";
+import {useCartStore} from "../store/cartStore.js";
+import {onAuthStateChanged} from "firebase/auth";
+import {useNavigate} from "react-router-dom";
 
 
 export const CheckoutForm = React.memo(() => {
+    const { cart } = useCartStore();
+    const [userAuth, setUserAuth] = React.useState(null);
+    const navigate = useNavigate();
+
+    const authCatchChanges = (user) => {
+        if(!user)
+            return 0;
+
+        if (user) {
+            // console.log("User signed in:", user.uid);
+            setUserAuth(user);
+        } else {
+            console.log("No user is signed in.");
+        }
+    };
+
+    useEffect(() => {
+        // Get SignedIn User
+        onAuthStateChanged(auth, authCatchChanges);
+    }, []);
+    const saveCheckout = async (checkoutData) => {
+        try {
+            console.log("Saving checkout data: ", checkoutData); // Log the data being passed in
+
+            // Create a new document in the 'checkouts' collection
+            const docRef = await addDoc(collection(db, "checkouts"), checkoutData);
+
+            console.log("Saving logic!!!!!!!!!!", docRef.id);
+
+            navigate("/successfullyCheckoutPage");
+
+        } catch (error) {
+            console.error('Error saving checkout: ', error);
+        }
+    };
+
+    const handleSubmit = useCallback(async (values) => {
+        const checkoutData = {
+            userID: userAuth.uid,
+            fullName: values.fullName,
+            items: [
+                ...cart.map(item => item),
+            ],
+            total: cart.reduce((acc, item) => { return  acc + item.totalPieces }, 0),
+            shippingAddress: {
+                street: values.street,
+                city: values.city,
+                state: values.state,
+                postalCode: values.postalCode,
+                country: values.country
+            }
+        };
+        // console.log(JSON.stringify(checkoutData));
+        await saveCheckout(checkoutData);
+
+    }, [cart, userAuth]);
 
     return <div className="CheckoutForm container pb-5">
         <h1 className={"text-lg font-bold uppercase p-5 whitespace-nowrap text-gray-900"}>
@@ -22,9 +82,10 @@ export const CheckoutForm = React.memo(() => {
                 country: "",
             }}
             validationSchema={CheckoutValidation}
-            onSubmit={(values, {setSubmitting}) => {
+            onSubmit={async (values, {setSubmitting}) => {
                 setSubmitting(false);
                 console.log(values);
+                await handleSubmit(values);
             }}
         >
             <Form className="checkoutForm max-w-[500px] mx-auto mb-5 flex flex-col gap-4">

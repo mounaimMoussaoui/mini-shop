@@ -9,6 +9,7 @@ import {Signup} from "../../pages/Signup.jsx";
 import {MainLayout} from "../../layouts/MainLayout.jsx";
 import {ProtectRouter} from "../../utilities/ProtectRouter.jsx";
 import {CheckoutForm} from "../../pages/CheckoutForm.jsx";
+import {SuccessPageCheckout} from "../../pages/SuccessPageCheckout.jsx";
 // import {Form} from "../../pages/FormFormik.jsx";
 
 
@@ -37,6 +38,10 @@ export const AppRouterProvider = React.memo(() => {
                 {
                     path: "/checkoutForm",
                     element: <ProtectRouter> <CheckoutForm /> </ProtectRouter>
+                },
+                {
+                    path: "/successfullyCheckoutPage",
+                    element: <ProtectRouter> <SuccessPageCheckout /> </ProtectRouter>
                 },
                 // {
                 //     path: "/formFormik",

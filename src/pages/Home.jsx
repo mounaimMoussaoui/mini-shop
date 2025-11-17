@@ -31,6 +31,14 @@ export const Home = React.memo(() => {
         });
         setTimeout(() => setLoading(true), 500);
 
+        fetch("data/data.json").then((res) => {
+            return res;
+        }).then((res) => {
+            console.log(res);
+        }).catch((rec) => {
+            console.log(rec);
+        })
+
     }, []);
 
 
