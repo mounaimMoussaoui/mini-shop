@@ -6,7 +6,6 @@ import {FaBars} from "react-icons/fa";
 import {useCartStore} from "../store/cartStore.js";
 import {useAuthContext} from "../authMangment/AuthContext.js";
 import { MdLogout } from "react-icons/md";
-import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 export const NavBar = React.memo(() => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);

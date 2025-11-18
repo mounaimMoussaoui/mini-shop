@@ -6,8 +6,8 @@ import {Pagination} from "../components/Pagination.jsx";
 import {SideFilters} from "../components/SideFilters.jsx";
 import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
-import {FaCartPlus} from "react-icons/fa";
-import "../styles/product.module.scss"
+import {FaCartPlus, FaExclamation} from "react-icons/fa";
+import "../styles/product.module.scss";
 
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
@@ -20,7 +20,6 @@ export const Home = React.memo(() => {
     const [msg, setMsg] = useState("");
     const [filters, setFilters] = React.useState({});
 
-
     useEffect(() => {
         getProducts().then((res) => {
             setData(res);
@@ -30,17 +29,7 @@ export const Home = React.memo(() => {
             throw new Error("Error getting products list");
         });
         setTimeout(() => setLoading(true), 500);
-
-        fetch("data/data.json").then((res) => {
-            return res;
-        }).then((res) => {
-            console.log(res);
-        }).catch((rec) => {
-            console.log(rec);
-        })
-
     }, []);
-
 
     const getCurrentPage = (currentPage) => {
         const totalElements = 12;
@@ -113,7 +102,7 @@ export const Home = React.memo(() => {
                         error
                         ? <span className={"font-bold py-5 sm:text-3xl w-full flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
                         : getData().length === 0 ?
-                        <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>No Product Yet</span>
+                        <span className={"font-bold text-2xl py-5 flex flex-col gap-y-[25px] w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}> <FaExclamation className={"text-xl font-bold sm:text-[100px] text-gray-200"} /> No Product Yet</span>
                         : loading
                         ? getData().slice(startElement, currentPage).map((item) => {
                             return <li key={item.id} className={"product-sizing"}>

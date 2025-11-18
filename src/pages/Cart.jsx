@@ -1,18 +1,21 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import { useCartStore } from "../store/cartStore.js";
-import { FaMinusCircle, FaPlusCircle, FaTrash } from "react-icons/fa"
-import { FaCheckCircle } from "react-icons/fa";
+import { FaMinusCircle, FaPlusCircle, FaTrash, FaExclamation, FaCheckCircle  } from "react-icons/fa"
 import { IoIosRemoveCircle } from "react-icons/io";
 import { AlertPopup } from "./AlertPopup.jsx";
-// import useLocalStorage from "../customsHooks/useLocalStorage.jsx";
+import useLocalStorage from "../customsHooks/useLocalStorage.jsx";
 import {useNavigate} from "react-router-dom";
-// import { collection, addDoc, getDocs } from "firebase/firestore";
-//Zustand use this tool to create a State Management
+
+/******************************** || Zustand use this tool to create a State Management || ********************************/
 
 export const Cart = React.memo(() => {
     const {cart, isAddingCart, deleteCart, clearCart, decrementPiecesTotal, incrementPiecesTotal, changeAddingState} = useCartStore();
     const navigate = useNavigate();
-    // const [storedCart, setStoredCart] = useLocalStorage("cartItemsStored", []);
+    const [storedCart, setStoredCart] = useLocalStorage("cartItemsStored", []);
+
+    useEffect(() => {
+        setStoredCart(cart)
+    }, [cart, setStoredCart]);
 
     const handleChangePiecesIncrement = useCallback((id) => {
         const totalPieces = cart.find((item) => item.id === id).totalPieces;
@@ -42,22 +45,13 @@ export const Cart = React.memo(() => {
         clearCart();
     }, [clearCart]);
 
-    /***********************************************************************************************************/
-
-    // useEffect(() => {
-    //     setStoredCart(cart);
-    // }, [cart, setStoredCart]);
-
-    /***********************************************************************************************************************************************************/
-
-
     const handleCheckOut = useCallback(async () => {
         navigate("/checkoutForm");
     }, [navigate]);
 
     const getDataCart = () => {
-        // return storedCart.length ? storedCart : cart.length ? cart : [];
-        return cart;
+        return storedCart.length ? storedCart : cart.length ? cart : [];
+        // return cart;
     }
 
     return <>
@@ -143,7 +137,7 @@ export const Cart = React.memo(() => {
                         </td>
                     </tr>
                     </tfoot>
-                </table> : <span className={"font-bold text-gray-200 text-lg md:text-5xl text-center mx-auto block py-10"}>No Product Yet ...</span>
+                </table> : <span className={"flex flex-col gap-y-[25px] items-center font-bold text-gray-200 text-lg md:text-5xl text-center mx-auto py-10"}> <FaExclamation className={"text-xl font-bold sm:text-[100px] text-gray-200"} /> No Product Yet ...</span>
             }
         </div>
         { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-red-400"} message={"Product Delete Successfully"}> <IoIosRemoveCircle className={"text-xl text-white"} /> </AlertPopup> }
