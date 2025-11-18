@@ -8,13 +8,16 @@ import {addDoc, auth, collection, db} from "../firebase.js";
 import {useCartStore} from "../store/cartStore.js";
 import {onAuthStateChanged} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
+import {AlertPopup} from "./AlertPopup.jsx";
+import { FcApproval } from "react-icons/fc";
+
 
 
 export const CheckoutForm = React.memo(() => {
     const { cart } = useCartStore();
     const [userAuth, setUserAuth] = React.useState(null);
     const navigate = useNavigate();
-
+    const [checkSavedCheckout, setCheckSaveCheckout] = React.useState(false);
     const authCatchChanges = (user) => {
         if(!user)
             return 0;
@@ -40,7 +43,6 @@ export const CheckoutForm = React.memo(() => {
 
             console.log("Saving logic!!!!!!!!!!", docRef.id);
 
-            navigate("/successfullyCheckoutPage");
 
         } catch (error) {
             console.error('Error saving checkout: ', error);
@@ -66,7 +68,14 @@ export const CheckoutForm = React.memo(() => {
         // console.log(JSON.stringify(checkoutData));
         await saveCheckout(checkoutData);
 
-    }, [cart, userAuth]);
+        setCheckSaveCheckout(true);
+
+        setTimeout(() => {
+            setCheckSaveCheckout(false);
+            navigate("/successfullyCheckoutPage");
+        },8000);
+
+    }, [cart, userAuth, navigate]);
 
     return <div className="CheckoutForm container pb-5">
         <h1 className={"text-lg font-bold uppercase p-5 whitespace-nowrap text-gray-900"}>
@@ -92,24 +101,28 @@ export const CheckoutForm = React.memo(() => {
                 <MyTextField label="Full Name :" name={"fullName"} id="fullName" type="text" placeholder="Full Name">
                     <MdPermIdentity />
                 </MyTextField>
-                <MyTextField label="Street :" name={"street"} id="Street" type="text" placeholder="Street Name">
-                    <MdStreetview  />
-                </MyTextField>
-                <MyTextField label="State :" name={"state"} id="State" type="text" placeholder="State Name">
-                    <TbBuildingEstate   />
-                </MyTextField>
-                <MySelect label={"City :"} name={"city"} id="city" type="text" placeholder="City">
-                    <option value="">Select City Name</option>
-                    <option value="Casablanca">Casablanca</option>
-                    <option value="Rabat">Rabat</option>
-                    <option value="Agadir">Agadir</option>
-                </MySelect>
-                <MySelect label={"Country :"} name={"country"} id="country" type="text" placeholder="Country Name">
-                    <option value="">Select Country Name</option>
-                    <option value="Maroc">Maroc</option>
-                    <option value="Usa">Usa</option>
-                    <option value="Qatar">Qatar</option>
-                </MySelect>
+                <div className={"flex gap-2 flex-row"}>
+                    <MyTextField label="Street :" name={"street"} id="Street" type="text" placeholder="Street Name" hasContainer={true}>
+                        <MdStreetview  />
+                    </MyTextField>
+                    <MyTextField label="State :" name={"state"} id="State" type="text" placeholder="State Name" hasContainer={true}>
+                        <TbBuildingEstate   />
+                    </MyTextField>
+                </div>
+                <div className={"flex gap-2 flex-row"}>
+                    <MySelect label={"City :"} name={"city"} id="city" type="text" placeholder="City" hasContainer={true}>
+                        <option value="">Select City Name</option>
+                        <option value="Casablanca">Casablanca</option>
+                        <option value="Rabat">Rabat</option>
+                        <option value="Agadir">Agadir</option>
+                    </MySelect>
+                    <MySelect label={"Country :"} name={"country"} id="country" type="text" placeholder="Country Name" hasContainer={true}>
+                        <option value="">Select Country Name</option>
+                        <option value="Maroc">Maroc</option>
+                        <option value="Usa">Usa</option>
+                        <option value="Qatar">Qatar</option>
+                    </MySelect>
+                </div>
                 <MyTextField label="Code Postal :" name={"postalCode"} id="codePostal" type="text" placeholder="Code Postal">
                     <TbHttpPost  />
                 </MyTextField>
@@ -121,6 +134,13 @@ export const CheckoutForm = React.memo(() => {
                 </button>
             </Form>
         </Formik>
+        {
+            checkSavedCheckout ?
+                <AlertPopup bgColor={"bg-green-500"} isAddingCart={true} message={"Checkout Saved Successfully !!"}>
+                    <FcApproval />
+                </AlertPopup>
+                : null
+        }
     </div>
 
 })

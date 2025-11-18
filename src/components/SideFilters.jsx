@@ -20,7 +20,7 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
         return ValidationOfFilters(categoriesNames, maxPrice);
     }
 
-    return  <ul className="side-filters p-4 flex flex-col list-none bg-white sm:min-w-[300px] shadow-sm shadow-black sm:shadow-none sm:border-r-2 ms:border-r-black">
+    return  <ul className="side-filters p-4 flex flex-col list-none bg-white sm:min-w-[300px] sm:min-h-[90vh] after:hidden sm:after:block shadow-sm shadow-black sm:shadow-none sm:relative sm:after:shadow-sm sm:after:bg-black sm:after:shadow-black sm:after:min-w-[1px] sm:after:h-[100%] sm:after:top-0 sm:after:absolute sm:after:right-0">
         <li className={"pb-10 relative"}>
             <h4 className={"font-bold text-xl block uppercase sm:text-center"}>Side Of Filters Options</h4>
             <span className={"absolute bottom-[20px] sm:left-[50%] sm:translate-x-[-50%] w-[60px] h-[3px] bg-orange-300"}></span>

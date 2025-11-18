@@ -4,7 +4,7 @@ import React from "react";
 export const MyTextField = ({label, children, ...props}) => {
 
     const [field, meta] = useField(props);
-    return  (<div className={"w-full flex flex-col justify-center gap-2 min-w-full"}>
+    return  (<div className={`flex flex-col justify-center gap-2 ${props.hasContainer ? "basis-1/2" : "w-full min-w-full"}`}>
         <label htmlFor={props.id || props.name}
                className={"text-xl font-bold"}
         >{label}</label>
@@ -26,7 +26,7 @@ export const MyTextField = ({label, children, ...props}) => {
 
 export const MySelect = ({label, ...props}) => {
     const [field, meta] = useField(props);
-    return (<div className="w-full flex flex-col gap-2 justify-between min-w-full">
+    return (<div className={`flex flex-col justify-center gap-2 ${props.hasContainer ? "basis-1/2" : "w-full min-w-full"}`}>
             <label htmlFor={props.id || props.name}
                 className={"text-xl font-bold"}
             >{label}</label>

@@ -55,7 +55,7 @@ export const Cart = React.memo(() => {
     }
 
     return <>
-        <div className="cart p-5 relative">
+        <div className="cart sm:p-5 relative">
             <h1 className={"py-5 uppercase text-xl font-bold"}>Your Cart Products</h1>
             {
                 getDataCart().length > 0 ? <table className="table table-striped table-bordered w-full overflow-x-auto">
@@ -137,10 +137,10 @@ export const Cart = React.memo(() => {
                         </td>
                     </tr>
                     </tfoot>
-                </table> : <span className={"flex flex-col gap-y-[25px] items-center font-bold text-gray-200 text-lg md:text-5xl text-center mx-auto py-10"}> <FaExclamation className={"text-xl font-bold sm:text-[100px] text-gray-200"} /> No Product Yet ...</span>
+                </table> : <span className={"flex flex-col gap-y-[55px] items-center font-bold text-gray-300 text-5xl text-center mx-auto py-10"}> <FaExclamation className={"text-5xl font-bold sm:text-[100px] text-gray-200"} /> No Product Yet ...</span>
             }
         </div>
-        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-red-400"} message={"Product Delete Successfully"}> <IoIosRemoveCircle className={"text-xl text-white"} /> </AlertPopup> }
+        { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-red-400"} message={"Product Delete Successfully"}> <IoIosRemoveCircle className={"text-2xl text-white"} /> </AlertPopup> }
     </>
 });
 
