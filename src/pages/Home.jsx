@@ -8,6 +8,7 @@ import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus, FaExclamation} from "react-icons/fa";
 import "../styles/product.module.scss";
+// import myLocalData from "../data/data.json"
 
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);

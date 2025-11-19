@@ -6,7 +6,7 @@ import {FaExclamation} from "react-icons/fa";
 
 export const Profile = React.memo(() => {
     const { authStateManagement } = useAuthContext();
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
 
     const getAllDocuments = async (collectionName) => {
         try {
@@ -20,8 +20,13 @@ export const Profile = React.memo(() => {
             if(!querySnapshot.empty){
                 await querySnapshot.forEach((doc) => {
                     // console.log(doc.id, " => ", doc.data());
-                    setData( doc.data());
-                    console.log(doc.data());
+                    setData( prevData => {
+                        return [
+                            ...prevData,
+                            ...doc.data().items
+                        ]
+                    });
+                    console.log(doc.data().items);
 
                 });
             } else {
@@ -42,6 +47,10 @@ export const Profile = React.memo(() => {
 
     }, [authStateManagement.user]);
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
     return <div className={"pb-5"}>
         <h1 className={"py-3 w-fit mr-auto ml-5 font-bold text-black text-5xl"}>Profile</h1>
         <div className={"w-fit mr-auto ml-5 text-sm text-gray-400 font-bold"}>Welcome {authStateManagement?.user?.email} this You List Of Products</div>
@@ -59,11 +68,11 @@ export const Profile = React.memo(() => {
                         </thead>
                         <tbody>
                         {
-                            data && data?.items?.map((item, index) => (
+                            data && data.map((item, index) => (
                                 <tr key={index} className={"text-center"}>
                                     <td className={"p-4 border-gray-200 border-r"}>{item.id}</td>
                                     <td className={"p-4 border-gray-200 border-r text-left flex gap-4 items-center"}>
-                                        <img src={item.images[0]} alt="Product Image" width="70" height="70"
+                                        <img src={item?.images[0]} alt="Product Image" width="70" height="70"
                                              className="rounded-full max-w-[40px] max-h-[40px] md:max-w-[60px] md:max-h-[60px]"/>
                                         <p>{item.title}</p>
                                     </td>
@@ -80,7 +89,7 @@ export const Profile = React.memo(() => {
                         <tfoot className={"border-t border-gray-200"}>
                         <tr className={"border-t border-b border-gray-200 bg-gray-100"}>
                             <td colSpan={3} className={"p-4 border-r border-gray-200"}>Total Products Price :</td>
-                            <td className={"p-4 text-center"}><strong>{data.items?.reduce((acc, item) => {
+                            <td className={"p-4 text-center"}><strong>{data.reduce((acc, item) => {
                                 return acc * item.totalPieces * item.price
                             }, 1).toFixed(2)} $</strong></td>
                         </tr>
