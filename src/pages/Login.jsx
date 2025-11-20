@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { auth  } from "../firebase.js";
 import { Form, Formik } from "formik";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -12,10 +12,16 @@ import { MyTextField } from "../formikFields/FieldsFormik.jsx";
 import { useNavigate } from "react-router-dom";
 
 export const Login = React.memo(() => {
-    const { authStateManagement, addLogin } = useAuthContext();
+    const { authStateManagement, addLogin, originSource } = useAuthContext();
     const [login, setLogin] = React.useState(false);
     const navigate  = useNavigate();
     const [message, setMessage] = React.useState({});
+    const [originSrc, setOriginSrc] = React.useState("");
+
+    useEffect(() => {
+        console.log(originSource);
+        setOriginSrc(originSource);
+    }, [originSource]);
 
     return <>
         <h1 className={"text-5xl font-bold w-fit mx-auto mt-5"}>Login</h1>
@@ -28,7 +34,7 @@ export const Login = React.memo(() => {
         onSubmit={(values, { setSubmitting }) => {
             signInWithEmailAndPassword(auth, values.email, values.password).then( (res) => {
                 addLogin(res.user);
-                navigate("/profile");
+                navigate(`/${originSrc}`);
                 setLogin(true);
                 setMessage(prev =>  { return { ...prev, message: "logged successfully", color: "bg-green-600" } });
             }).catch((rej) => {
