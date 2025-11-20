@@ -11,22 +11,27 @@ import {useNavigate} from "react-router-dom";
 import {AlertPopup} from "./AlertPopup.jsx";
 import { FcApproval } from "react-icons/fc";
 
-
-
 export const CheckoutForm = React.memo(() => {
     const { cart } = useCartStore();
     const [userAuth, setUserAuth] = React.useState(null);
     const navigate = useNavigate();
     const [checkSavedCheckout, setCheckSaveCheckout] = React.useState(false);
+    const [msg, setMsg] = React.useState({});
     const authCatchChanges = (user) => {
         if(!user)
-            return 0;
+            return
 
         if (user) {
-            // console.log("User signed in:", user.uid);
             setUserAuth(user);
         } else {
             console.log("No user is signed in.");
+            setMsg( prevMsg => {
+                return {
+                    ...prevMsg,
+                    textMsg: "No user is signed in.",
+                    bgColor: "bg-red-700",
+                }
+            });
         }
     };
 
@@ -43,9 +48,22 @@ export const CheckoutForm = React.memo(() => {
 
             console.log("Saving logic!!!!!!!!!!", docRef.id);
 
-
+            setMsg( prevMsg => {
+                return {
+                    ...prevMsg,
+                    textMsg: "Saving Dane",
+                    bgColor: "bg-green",
+                }
+            });
         } catch (error) {
             console.error('Error saving checkout: ', error);
+            setMsg( prevMsg => {
+                return {
+                    ...prevMsg,
+                    textMsg: `Error saving checkout:  ${error}`,
+                    bgColor: "bg-red-700",
+                }
+            });
         }
     };
 
@@ -65,7 +83,6 @@ export const CheckoutForm = React.memo(() => {
                 country: values.country
             }
         };
-        // console.log(JSON.stringify(checkoutData));
         await saveCheckout(checkoutData);
 
         setCheckSaveCheckout(true);
@@ -136,7 +153,7 @@ export const CheckoutForm = React.memo(() => {
         </Formik>
         {
             checkSavedCheckout ?
-                <AlertPopup bgColor={"bg-green-500"} isAddingCart={true} message={"Checkout Saved Successfully !!"}>
+                <AlertPopup bgColor={msg.bgColor} isAddingCart={true} message={msg.textMsg}>
                     <FcApproval />
                 </AlertPopup>
                 : null
