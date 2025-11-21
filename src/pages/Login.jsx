@@ -19,7 +19,6 @@ export const Login = React.memo(() => {
     const [originSrc, setOriginSrc] = React.useState("");
 
     useEffect(() => {
-        console.log(originSource);
         setOriginSrc(originSource);
     }, [originSource]);
 

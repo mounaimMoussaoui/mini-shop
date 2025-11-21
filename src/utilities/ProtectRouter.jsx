@@ -17,7 +17,6 @@ export const ProtectRouter = React.memo(({ children }) => {
     }, [user, navigate]);
 
     useEffect(() => {
-        console.log(dataItems[0]);
         putOriginSource(dataItems[0]);
     }, [dataItems]);
 
