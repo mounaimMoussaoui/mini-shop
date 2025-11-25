@@ -1,10 +1,11 @@
 import {useField} from "formik";
 import React from "react";
+import "../styles/product.module.scss"
 
 export const MyTextField = ({label, children, ...props}) => {
 
     const [field, meta] = useField(props);
-    return  (<div className={`flex flex-col justify-center gap-2 ${props.hasContainer ? "basis-1/2" : "w-full min-w-full"}`}>
+    return  (<div className={`flex flex-col justify-center gap-2 ${props.hasContainer ? "basis-1 sm:basis-1/2" : "w-full min-w-full"}`}>
         <label htmlFor={props.id || props.name}
                className={"text-xl font-bold"}
         >{label}</label>
@@ -14,7 +15,7 @@ export const MyTextField = ({label, children, ...props}) => {
                 props.type === "range" && (<span className={"absolute top-[0px] right-0 text-blue-300-600 font-bold text-[10px]"}>{field.value || 0} $</span>)
             }
             <input
-                className={`input-form${props.type !== "range" ? " py-3 px-[40px] shadow-lg rounded-sm absolute " : " "} min-w-full min-h-full transition ease-in-out focus:outline-none focus:border-b-2 ${meta.touched && meta.error ? 'focus:border-b-red-500' : meta.touched ? 'border-green-500' : 'text-black'}`}
+                className={`input-form${props.type !== "range" ? " py-3 px-[40px] shadow-lg absolute " : " "} border border-gray-800 w-full rounded-md min-h-full transition ease-in-out focus:outline-none ${meta.touched && meta.error ? 'border-red-500' : meta.touched ? 'border-green-500' : 'text-black'}`}
                 {...field} {...props} />
         </div>
         {
@@ -26,11 +27,11 @@ export const MyTextField = ({label, children, ...props}) => {
 
 export const MySelect = ({label, ...props}) => {
     const [field, meta] = useField(props);
-    return (<div className={`flex flex-col justify-center gap-2 ${props.hasContainer ? "basis-1/2" : "w-full min-w-full"}`}>
+    return (<div className={`flex flex-col justify-center gap-2 ${props.hasContainer ? "basis-1 sm:basis-1/2" : "w-full min-w-full"}`}>
             <label htmlFor={props.id || props.name}
                 className={"text-xl font-bold"}
             >{label}</label>
-            <select {...field} {...props} className={"w-full py-3 px-5 rounded shadow-sm shadow-black"}/>
+            <select {...field} {...props} className={`w-full py-3 px-5 shadow-sm border border-gray-800 rounded-md ${meta.touched && meta.error ? 'border-red-500' : meta.touched ? 'border-green-500' : 'text-black'}`}/>
             { meta.touched && meta.error ? ( <span className={"text-sm text-red-500"}>{meta.error}</span> ) : null }
         </div>
     )

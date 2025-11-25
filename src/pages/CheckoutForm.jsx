@@ -110,7 +110,7 @@ export const CheckoutForm = React.memo(() => {
             validationSchema={CheckoutValidation}
             onSubmit={async (values, {setSubmitting}) => {
                 setSubmitting(false);
-                console.log(values);
+                // console.log(values);
                 await handleSubmit(values);
             }}
         >
@@ -118,7 +118,7 @@ export const CheckoutForm = React.memo(() => {
                 <MyTextField label="Full Name :" name={"fullName"} id="fullName" type="text" placeholder="Full Name">
                     <MdPermIdentity />
                 </MyTextField>
-                <div className={"flex gap-2 flex-row"}>
+                <div className={"flex flex-col gap-2 sm:flex-row"}>
                     <MyTextField label="Street :" name={"street"} id="Street" type="text" placeholder="Street Name" hasContainer={true}>
                         <MdStreetview  />
                     </MyTextField>
@@ -126,7 +126,7 @@ export const CheckoutForm = React.memo(() => {
                         <TbBuildingEstate   />
                     </MyTextField>
                 </div>
-                <div className={"flex gap-2 flex-row"}>
+                <div className={"flex gap-2 flex-col sm:flex-row"}>
                     <MySelect label={"City :"} name={"city"} id="city" type="text" placeholder="City" hasContainer={true}>
                         <option value="">Select City Name</option>
                         <option value="Casablanca">Casablanca</option>
