@@ -6,6 +6,7 @@ import {FaBars} from "react-icons/fa";
 import {useCartStore} from "../store/cartStore.js";
 import {useAuthContext} from "../authMangment/AuthContext.js";
 import { MdLogout } from "react-icons/md";
+import {motion as Motion} from "framer-motion"
 
 export const NavBar = React.memo(() => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -36,7 +37,8 @@ export const NavBar = React.memo(() => {
         navigate("/login");
     }, [logout, navigate]);
 
-    return <nav role="navigation" aria-label="Main navigation" className="flex items-center gap-5 p-5 bg-white z-10 shadow-sm shadow-black h-[90px] sticky top-0">
+    return <Motion.nav initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}
+                       role="navigation" aria-label="Main navigation" className="flex items-center gap-5 p-5 bg-white z-10 shadow-sm shadow-black h-[90px] sticky top-0">
         <div className="logo whitespace-nowrap transition-[0.3s] font-bold uppercase ms:tracking-wide sm:text-xl sm:w-[fit-content] text-white bg-amber-500 p-3 rounded shadow-sm shadow-amber-300">
             <NavLink to={'/'}>
                 Mini-Shop
@@ -67,11 +69,6 @@ export const NavBar = React.memo(() => {
             {/*<li>*/}
             {/*    <NavLink to="/formFormik" className={activeLink}><IoCreateOutline/> Form Formik</NavLink>*/}
             {/*</li>*/}
-            {/*<li>*/}
-            {/*    <NavLink to={"/checkoutForm"} className={activeLink} hidden={true}>*/}
-            {/*        <MdOutlineShoppingCartCheckout />*/}
-            {/*    </NavLink>*/}
-            {/*</li>*/}
             <li>
                 {
                     login ? <button className={"py-1 px-5 rounded bg-black text-white flex gap-2 items-center"}
@@ -83,5 +80,5 @@ export const NavBar = React.memo(() => {
         <div className={"flex ml-auto text-3xl cursor-pointer sm:hidden"} onClick={handleClick}>
             <FaBars/>
         </div>
-    </nav>
+    </Motion.nav>
 });

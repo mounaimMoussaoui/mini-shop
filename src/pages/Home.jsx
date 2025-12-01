@@ -7,9 +7,8 @@ import {SideFilters} from "../components/SideFilters.jsx";
 import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus, FaExclamation} from "react-icons/fa";
+import { motion as Motion }  from "framer-motion";
 import "../styles/product.module.scss";
-// import myLocalData from "../data/data.json"
-
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
@@ -20,7 +19,6 @@ export const Home = React.memo(() => {
     const [newProd, setNewProduct] = React.useState({});
     const [msg, setMsg] = useState("");
     const [filters, setFilters] = React.useState({});
-
     useEffect(() => {
         getProducts().then((res) => {
             setData(res);
@@ -31,13 +29,11 @@ export const Home = React.memo(() => {
         });
         setTimeout(() => setLoading(true), 500);
     }, []);
-
     const getCurrentPage = (currentPage) => {
         const totalElements = 12;
         setCurrentPage(currentPage  * totalElements);
         setStartElement( (currentPage * totalElements ) - totalElements );
     }
-
     useEffect(() => {
         let existProduct;
         existProduct = cart.find((item) => {  return item.id === newProd.id }) || null;
@@ -52,7 +48,6 @@ export const Home = React.memo(() => {
              setMsg("Product Added To cart Successfully");
         }
     }, [newProd, addToCart, deleteCart]);
-
     const handleAddToCart = (product) => {
         setNewProduct( prevState => { return {...prevState ,...product} } );
         changeAddingState();
@@ -60,19 +55,16 @@ export const Home = React.memo(() => {
             changeAddingState();
         }, 1000);
     }
-
     const maxPrice = useCallback(() => {
         let max;
             max = Math.max(...data.map((product) => { return product.price; }));
        return  max;
     }, [data]);
-
     const getValuesFlr = useCallback((values) => {
             setFilters(prevState => {
                 return {...prevState, ...values};
             });
     }, []);
-
     const getData = () => {
         return filters?.ctrFlr === "" && filters?.priceFlr === 0 ? data : data.filter((item) => {
 
@@ -95,7 +87,7 @@ export const Home = React.memo(() => {
         });
     }
 
-    return <>
+    return <Motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
                 <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
@@ -121,5 +113,5 @@ export const Home = React.memo(() => {
             {/*<Suspense fallback={null}>*/}
             { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-500"} message={msg}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
             {/*</Suspense>*/}
-    </>
+    </Motion.div>
 });

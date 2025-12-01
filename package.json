@@ -16,6 +16,7 @@
     "dotenv": "^17.2.3",
     "firebase": "^12.4.0",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.25",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

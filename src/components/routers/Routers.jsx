@@ -10,7 +10,7 @@ import {MainLayout} from "../../layouts/MainLayout.jsx";
 import {ProtectRouter} from "../../utilities/ProtectRouter.jsx";
 import {CheckoutForm} from "../../pages/CheckoutForm.jsx";
 import {SuccessPageCheckout} from "../../pages/SuccessPageCheckout.jsx";
-// import {Form} from "../../pages/FormFormik.jsx";
+// import {FormFormik} from "../../pages/FormFormik.jsx";
 
 
 export const AppRouterProvider = React.memo(() => {
@@ -45,7 +45,7 @@ export const AppRouterProvider = React.memo(() => {
                 },
                 // {
                 //     path: "/formFormik",
-                //     element: <Form />
+                //     element: <FormFormik />
                 // },
                 {
                     path: "/profile",

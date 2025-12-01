@@ -1,7 +1,9 @@
 // import React from "react";
-// import {useFormik} from "formik";
-//
-//
+// import {Formik, Form} from "formik";
+// import {MdTextFields} from "react-icons/md";
+// import {MyTextField} from "../formikFields/FieldsFormik.jsx";
+
+
 // const validate = values => {
 //
 //     const errors = {};
@@ -42,7 +44,7 @@
 //     return errors;
 //
 // };
-//
+
 // export const Form = React.memo(() => {
 //
 //
@@ -86,8 +88,35 @@
 //             formik.errors.password && formik.touched.password ? <span className={"text-red-500 text-sm"}>{formik.errors.password}</span> : null
 //         }
 //
+//
+//
 //         <button type={"submit"} className={"py-3 px-5 bg-black text-white font-bold rounded"}>Send</button>
 //     </form>
 //
 //
 // })
+
+// export const FormFormik  = React.memo(() => {
+//     return (
+//         <Formik initialValues={{
+//             job: '',
+//             username: ''
+//         }
+//         }
+//         onSubmit={
+//             (values, {setSubmitting}) => {
+//                 setSubmitting(false);
+//                 console.log(values);
+//             }
+//         }>
+//             <Form className="checkoutForm max-w-[500px] mx-auto mb-5 flex flex-col gap-4 m-[50px]">
+//                 <MyTextField label={"Jop "} name={"job"} type={"text"} placeholder={"@Accountant, Josef"}>
+//                     <MdTextFields />
+//                 </MyTextField>
+//                 <MyTextField label={"username "} name={"username"} type={"text"} placeholder={"@, Josef"}>
+//                     <MdTextFields />
+//                 </MyTextField>
+//             </Form>
+//         </Formik>
+//     )
+// });
