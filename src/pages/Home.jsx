@@ -7,7 +7,7 @@ import {SideFilters} from "../components/SideFilters.jsx";
 import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus, FaExclamation} from "react-icons/fa";
-import { motion as Motion }  from "framer-motion";
+import { motion }  from "framer-motion";
 import "../styles/product.module.scss";
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
@@ -87,7 +87,7 @@ export const Home = React.memo(() => {
         });
     }
 
-    return <Motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
+    return <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
                 <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
@@ -113,5 +113,5 @@ export const Home = React.memo(() => {
             {/*<Suspense fallback={null}>*/}
             { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-500"} message={msg}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
             {/*</Suspense>*/}
-    </Motion.div>
+    </motion.div>
 });
