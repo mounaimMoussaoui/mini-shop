@@ -3,6 +3,7 @@ import {getCategories} from "../services/api.js";
 import {Form, Formik} from "formik";
 import {MySelect, MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {ValidationOfFilters} from "../schemas/FilterValidation.js";
+import {RangePriceFilter} from "./RangePriceFilter.jsx";
 
 export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
     const [categories, setCategories] = React.useState([]);
@@ -44,6 +45,9 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
                     className={"filter-form-sizing flex gap-5 p-4 justify-between items-end overflow-hidden overflow-x-scroll sm:overflow-hidden sm:flex-col sm:gap-4"}>
                     <MyTextField label={"Filter By Price :"} type={"range"} id={"priceFlr"} name={"priceFlr"} min={0}
                                  max={maxPrice} step={30}/>
+                    {/*Work on the crucial range slider more used in e-commerce shops*/}
+                    <RangePriceFilter />
+
                     <MySelect label={"Filter By Category:"} name={"ctrFlr"} id={"ctrFlr"}>
                         <option value="" defaultValue={"Select Category"}>Select Category</option>
                         {
