@@ -3,7 +3,7 @@ import styles from "../styles/rangePriceFilter.module.scss";
 
 export const RangePriceFilter = React.memo(()=> {
     const initialMinPrice = 0;
-    const initialMaxPrice = 0;
+    const initialMaxPrice = 1000;
 
     const [sliderMinValue] = useState(initialMinPrice);
     const [sliderMaxValue] = useState(initialMaxPrice);
@@ -74,7 +74,6 @@ export const RangePriceFilter = React.memo(()=> {
             setMaxValue(value);
             setMaxInputValue(value);
         }
-
     }
 
     const handleInputKeyDown = (e, type) => {
@@ -98,9 +97,6 @@ export const RangePriceFilter = React.memo(()=> {
         setIsDragging(false);
     }
 
-    // return <article className="range-price-filter">
-    //
-    // </article>
     return (<div className={`double-slider-box ${styles.double_slider_box}`}>
                 <div className={`input-box ${styles.input_box}`}>
                     <div className={`min-box ${styles.min_box}`}>
