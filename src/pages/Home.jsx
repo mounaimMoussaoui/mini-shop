@@ -87,10 +87,36 @@ export const Home = React.memo(() => {
         });
     }
 
+    const containerProductsVariants = {
+        hidden: {
+            opacity: 0,
+            x: -100,
+        },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                staggerChildren: 0.5,
+                durationChildren: 0.9,
+            }
+        }
+    }
+
+    const variantItemsProduct = {
+        hidden: {
+            opacity: 0,
+            x: -100
+        },
+        visible: {
+            opacity: 1,
+            x: 0
+        }
+    }
+
     return <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
-                <ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
+                <motion.ul variants={containerProductsVariants} initial={"hidden"} animate={"visible"} className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
                     {
                         error
                         ? <span className={"font-bold py-5 sm:text-3xl w-full flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
@@ -98,17 +124,17 @@ export const Home = React.memo(() => {
                         <span className={"font-bold text-2xl py-5 flex flex-col gap-y-[25px] w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}> <FaExclamation className={"text-xl font-bold sm:text-[100px] text-gray-200"} /> No Product Yet</span>
                         : loading
                         ? getData().slice(startElement, currentPage).map((item) => {
-                            return <li key={item.id} className={"product-sizing"}>
+                            return <motion.li key={item.id} variants={variantItemsProduct} className={"product-sizing"}>
                                 <ProductCard key={item.id} product={item} onAddToCart={(product) => {
                                     handleAddToCart(product)
                                 }}/>
-                            </li>
+                            </motion.li>
                         }) : <span className={"font-bold text-2xl py-5 flex w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}>Loading ...</span>
                     }
                     <li className={"min-w-full"}>
                         {getData().length && getData().length > 12 && loading && !error ? <Pagination countPrd={getData().length} getCurrentPage={getCurrentPage}/> : null }
                     </li>
-                </ul>
+                </motion.ul>
             </section>
             {/*<Suspense fallback={null}>*/}
             { isAddingCart && <AlertPopup isAddingCart={isAddingCart} bgColor={"bg-green-500"} message={msg}> <FaCartPlus className={"text-xl text-white"}/> </AlertPopup>}
