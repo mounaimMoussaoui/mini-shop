@@ -87,7 +87,7 @@ export const Home = React.memo(() => {
         });
     }
 
-    const containerProductsVariants = {
+    const boxProductsVariants = {
         hidden: {
             opacity: 0,
             x: -100,
@@ -116,7 +116,7 @@ export const Home = React.memo(() => {
     return <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
-                <motion.ul variants={containerProductsVariants} initial={"hidden"} animate={"visible"} className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
+                <motion.ul variants={boxProductsVariants} initial={"hidden"} animate={"visible"} className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
                     {
                         error
                         ? <span className={"font-bold py-5 sm:text-3xl w-full flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
