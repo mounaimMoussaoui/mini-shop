@@ -9,6 +9,7 @@ import {MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {CiCircleInfo} from "react-icons/ci";
 import {useNavigate} from "react-router-dom";
+import {motion, scale} from "framer-motion";
 
 export const Signup = React.memo(() => {
     const [signUp, setSignUp] = React.useState({
@@ -51,8 +52,8 @@ export const Signup = React.memo(() => {
         }, 1000);
     }, []);
 
-    return <>
-        <h1 className={"mx-auto block p-5 font-bold text-5xl w-fit"}>Sign UP</h1>
+    return <motion.article initial={{ scale: 0.2 }} animate={{ scale: 1, transition: { type: "spring" } }}>
+        <motion.h1 initial={{ scale: 0.2 }} animate={{ scale: 1, transition: { type: "spring", delay: 0.3 } }} className={"mx-auto block p-5 font-bold text-5xl w-fit"} >Sign UP</motion.h1>
         <Formik initialValues={{
             email: "",
             password: ""
@@ -63,14 +64,19 @@ export const Signup = React.memo(() => {
             setSubmitting(false);
         }}>
             <Form className={"mt-[100px] max-w-[500px] mx-auto form flex flex-col gap-4"}>
-                <MyTextField type={"email"} id={"email"} name={"email"} placeholder={"example@gmail.com"}
-                             autoComplete="email"
-                             label={"Email :"}><MdOutlineMail/> </MyTextField>
-                <MyTextField type={"password"} id={"password"} name={"password"} placeholder={"********"}
-                             autoComplete="current-password"
-                             label={"Password :"}> <TbLockPassword/> </MyTextField>
-                <button type={"submit"} className={"px-5 py-3 bg-black w-full rounded text-white font-bold"}>Submit
-                </button>
+                <motion.div initial={{scale: 0.2}} animate={{scale: 1, transition: {type: "spring", delay: 0.3}}}>
+                    <MyTextField type={"email"} id={"email"} name={"email"} placeholder={"example@gmail.com"}
+                                 autoComplete="email"
+                                 label={"Email :"}><MdOutlineMail/> </MyTextField>
+                </motion.div>
+                <motion.div initial={{scale: 0.2}} animate={{scale: 1, transition: {type: "spring", delay: 0.3}}}>
+                    <MyTextField type={"password"} id={"password"} name={"password"} placeholder={"********"}
+                                 autoComplete="current-password"
+                                 label={"Password :"}> <TbLockPassword/> </MyTextField>
+                </motion.div>
+                    <motion.button initial={{scale: 0.2}} animate={{scale: 1, transition: {type: "spring", delay: 0.3}}} whileTap={{scale: 0.9}} whileHover={{scale: 1.1}} type={"submit"}
+                                   className={"px-5 py-3 bg-black w-full rounded text-white font-bold"}>Submit
+                    </motion.button>
             </Form>
         </Formik>
         {
@@ -79,7 +85,7 @@ export const Signup = React.memo(() => {
                 <CiCircleInfo className={"text-white font-bold"}/>
             </AlertPopup> : null
         }
-    </>
+    </motion.article>
 });
 
 

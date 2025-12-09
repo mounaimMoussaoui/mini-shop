@@ -10,6 +10,8 @@ import { AlertPopup } from "./AlertPopup.jsx";
 import { useAuthContext } from "../authMangment/AuthContext.js"
 import { MyTextField } from "../formikFields/FieldsFormik.jsx";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 export const Login = React.memo(() => {
     const { authStateManagement, addLogin, originSource } = useAuthContext();
     const [login, setLogin] = React.useState(false);
@@ -51,9 +53,9 @@ export const Login = React.memo(() => {
                 <MyTextField type={"password"} id="passwordField" label="Password" autoComplete={"current-password"} name={"password"} placeholder={"********"}>
                     <TbLockPassword />
                 </MyTextField>
-                <button type={"submit"}
+                <motion.button whileHover={{scale: 0.9}} whileTap={{scale: 1.1}} type={"submit"}
                 className={"py-3 px-5 rounded shadow-lg bg-black font-bold text-white"}
-                >Login</button>
+                >Login</motion.button>
             </Form>
         </Formik>
         {

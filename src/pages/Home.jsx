@@ -96,8 +96,8 @@ export const Home = React.memo(() => {
             opacity: 1,
             x: 0,
             transition: {
-                staggerChildren: 0.5,
-                durationChildren: 0.9,
+                staggerChildren: 0.3,
+                durationChildren: 0.6,
             }
         }
     }
@@ -116,7 +116,8 @@ export const Home = React.memo(() => {
     return <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
-                <motion.ul variants={boxProductsVariants} initial={"hidden"} animate={"visible"} className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}>
+                <motion.ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}
+                           variants={boxProductsVariants} initial={"hidden"} animate={"visible"}>
                     {
                         error
                         ? <span className={"font-bold py-5 sm:text-3xl w-full flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>
@@ -124,7 +125,9 @@ export const Home = React.memo(() => {
                         <span className={"font-bold text-2xl py-5 flex flex-col gap-y-[25px] w-full items-center justify-center text-gray-200 truncate sm:text-5xl"}> <FaExclamation className={"text-xl font-bold sm:text-[100px] text-gray-200"} /> No Product Yet</span>
                         : loading
                         ? getData().slice(startElement, currentPage).map((item) => {
-                            return <motion.li key={item.id} variants={variantItemsProduct} className={"product-sizing"}>
+                            return <motion.li key={item.id}
+                                              className={"product-sizing"}
+                                              variants={variantItemsProduct}>
                                 <ProductCard key={item.id} product={item} onAddToCart={(product) => {
                                     handleAddToCart(product)
                                 }}/>
