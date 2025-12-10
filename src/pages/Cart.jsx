@@ -5,6 +5,7 @@ import { IoIosRemoveCircle } from "react-icons/io";
 import { AlertPopup } from "./AlertPopup.jsx";
 import useLocalStorage from "../customsHooks/useLocalStorage.jsx";
 import {useNavigate} from "react-router-dom";
+import { motion } from "framer-motion";
 
 /******************************** || Zustand use this tool to create a State Management || ********************************/
 
@@ -56,7 +57,7 @@ export const Cart = React.memo(() => {
 
     return <>
         <div className="cart sm:p-5 relative">
-            <h1 className={"py-5 uppercase text-xl font-bold"}>Your Cart Products</h1>
+            <motion.h1 initial={{ scaleX : 0 }} animate={{ scaleX: 1, transition: { type: 'spring' } }} className={"py-5 uppercase text-xl font-bold"}>Your Cart Products</motion.h1>
             {
                 getDataCart().length > 0 ? <table className="table table-striped table-bordered w-full overflow-x-auto">
                     <thead className={"p-4 text-center border-t border-b border-gray-200 text-white uppercase bg-gray-600"}>

@@ -9,7 +9,7 @@ import {MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {CiCircleInfo} from "react-icons/ci";
 import {useNavigate} from "react-router-dom";
-import {motion, scale} from "framer-motion";
+import {motion} from "framer-motion";
 
 export const Signup = React.memo(() => {
     const [signUp, setSignUp] = React.useState({
