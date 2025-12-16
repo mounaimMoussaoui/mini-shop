@@ -1,14 +1,20 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import {getCategories} from "../services/api.js";
 import {Form, Formik} from "formik";
 import {MySelect, MyTextField} from "../formikFields/FieldsFormik.jsx";
 import {ValidationOfFilters} from "../schemas/FilterValidation.js";
 import {RangePriceFilter} from "./RangePriceFilter.jsx";
+import {motion} from "framer-motion";
 
 export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
     const [categories, setCategories] = React.useState([]);
+    const fetchedCategories = useRef(false);
 
     useEffect( () => {
+        if(fetchedCategories.current) return
+
+        fetchedCategories.current = true;
+
          getCategories().then((res) => {
              setCategories(res);
         }).catch(() => {
@@ -21,12 +27,12 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
         return ValidationOfFilters(categoriesNames, maxPrice);
     }
 
-    return  <ul className="side-filters p-4 flex flex-col list-none bg-white sm:min-w-[300px] sm:min-h-[90vh] after:hidden sm:after:block shadow-sm shadow-black sm:shadow-none sm:relative sm:after:shadow-sm sm:after:bg-black sm:after:shadow-black sm:after:min-w-[1px] sm:after:h-[100%] sm:after:top-0 sm:after:absolute sm:after:right-0">
-        <li className={"pb-10 relative"}>
+    return  <motion.ul initial={{opacity: 0, y: 10}} animate={{opacity: 1, y: 0, transition: { type: "spring" } }} className="side-filters p-4 flex flex-col list-none bg-white sm:min-w-[300px] sm:min-h-[90vh] after:hidden sm:after:block shadow-sm shadow-black sm:shadow-none sm:relative sm:after:shadow-sm sm:after:bg-black sm:after:shadow-black sm:after:min-w-[1px] sm:after:h-[100%] sm:after:top-0 sm:after:absolute sm:after:right-0">
+        <motion.li initial={{ scale: 0.5 }} animate={{ scale: 1, transition: { type: "spring" } }} className={"pb-10 relative"}>
             <h4 className={"font-bold text-xl block uppercase sm:text-center"}>Side Of Filters Options</h4>
             <span className={"absolute bottom-[20px] sm:left-[50%] sm:translate-x-[-50%] w-[60px] h-[3px] bg-orange-300"}></span>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li initial={{ scale: 0.5 }} animate={{ scale: 1, transition: { type: "spring" } }}>
             <Formik initialValues={
                 {
                     ctrFlr: '',
@@ -59,12 +65,14 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
                 </Form>
             </Formik>
 
-            <button type={"submit"}
-                    form={"filter-form"}
-                    className={"block py-3 px-5 shadow-lg bg-orange-600 rounded text-white font-bold sm:ml-auto sm:w-full transition ease-in-out scale-90 hover:scale-100"}>Filter
-            </button>
+            <motion.button initial={{opacity: 0, scale:0.9}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}} type={"submit"}
+                   whileHover={{ scale: 1, transition: {type: "spring" } }}
+                   whileTap={{ scale: 0.7 }}
+                   form={"filter-form"}
+                    className={"block py-3 px-5 shadow-lg bg-orange-600 rounded text-white font-bold sm:ml-auto sm:w-full"}>Filter
+            </motion.button>
 
-        </li>
+        </motion.li>
 
-    </ul>
+    </motion.ul>
 });

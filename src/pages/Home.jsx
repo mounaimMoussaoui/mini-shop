@@ -7,7 +7,7 @@ import {SideFilters} from "../components/SideFilters.jsx";
 import {useCartStore} from "../store/cartStore.js";
 import {AlertPopup} from "./AlertPopup.jsx";
 import {FaCartPlus, FaExclamation} from "react-icons/fa";
-import { motion }  from "framer-motion";
+import {motion, useAnimation} from "framer-motion";
 import "../styles/product.module.scss";
 export const Home = React.memo(() => {
     const [data, setData] = React.useState([]);
@@ -19,6 +19,7 @@ export const Home = React.memo(() => {
     const [newProd, setNewProduct] = React.useState({});
     const [msg, setMsg] = useState("");
     const [filters, setFilters] = React.useState({});
+
     useEffect(() => {
         getProducts().then((res) => {
             setData(res);
@@ -87,6 +88,14 @@ export const Home = React.memo(() => {
         });
     }
 
+    const controls = useAnimation();
+
+    useEffect(() => {
+        if (getData().length) {
+            controls.start("visible");
+        }
+    }, [getData, controls]);
+
     const boxProductsVariants = {
         hidden: {
             opacity: 0,
@@ -96,8 +105,8 @@ export const Home = React.memo(() => {
             opacity: 1,
             x: 0,
             transition: {
-                staggerChildren: 0.3,
-                durationChildren: 0.6,
+                staggerChildren: 0.5,
+                delayChildren: 0.5,
             }
         }
     }
@@ -117,7 +126,7 @@ export const Home = React.memo(() => {
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
                 <motion.ul className={"p-4 sm:p-0 sm:pt-3 flex justify-start items-stretch flex-wrap gap-3 grow"}
-                           variants={boxProductsVariants} initial={"hidden"} animate={"visible"}>
+                           variants={boxProductsVariants} initial={"hidden"} animate={controls}>
                     {
                         error
                         ? <span className={"font-bold py-5 sm:text-3xl w-full flex flex-col gap-5 items-center justify-center text-red-300 truncate lg:text-5xl"}><BiCommentError /> Problem When Data Loading</span>

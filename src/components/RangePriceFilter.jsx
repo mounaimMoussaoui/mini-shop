@@ -110,7 +110,7 @@ export const RangePriceFilter = React.memo(()=> {
                             max={maxValue - minGap}
                         />
                     </div>
-                    <div className={`max_box ${styles.max_box}`}>
+                    <div className={`max_box`}>
                         <input
                             type="number"
                             value={maxInputValue}
