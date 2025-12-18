@@ -19,16 +19,21 @@ export const ProductCard = React.memo(function ProductCard({ product, onAddToCar
         <article className="product-card shadow-sm shadow-gray-500 overflow-hidden rounded relative flex flex-col min-h-full min-w-full product-sizing">
             <header className="w-full" aria-label={`${product.title} images carousel`}>
                 <ul className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar min-h-[200px] bg-black w-full">
-                    {product.images.map((image, index) => (
-                        <li key={index} className="image min-w-full snap-center max-h-[200px]">
+                    {/*{product.images?.map((image) => (*/}
+                        <li key={Math.ceil(Math.random() * product.id)} className="image min-w-full snap-center max-h-[200px]">
                             <img
-                                src={image}
+                                src={product.image}
+                                onError={(e) => {
+                                    e.currentTarget.onerror = null;
+                                    e.currentTarget.src = "/placeholder.png";
+                                }}
                                 className="w-full h-full object-cover"
-                                alt={`${product.title} — image ${index + 1}`}
-                                loading="lazy"
+                                alt={`${product.title} — image ${product.id}`}
+                                loading={"lazy"}
+                                // decoding={"async"}
                             />
                         </li>
-                    ))}
+                    {/*))}*/}
                 </ul>
             </header>
 

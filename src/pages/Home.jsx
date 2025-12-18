@@ -97,29 +97,29 @@ export const Home = React.memo(() => {
     }, [getData, controls]);
 
     const boxProductsVariants = {
-        hidden: {
-            opacity: 0,
-            x: -100,
-        },
-        visible: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                staggerChildren: 0.5,
-                delayChildren: 0.5,
-            }
-        }
+        // hidden: {
+        //     opacity: 0,
+        //     x: -100,
+        // },
+        // visible: {
+        //     opacity: 1,
+        //     x: 0,
+        //     transition: {
+        //         staggerChildren: 0.4,
+        //         // delayChildren: 0.5,
+        //     }
+        // }
     }
 
     const variantItemsProduct = {
-        hidden: {
-            opacity: 0,
-            x: -100
-        },
-        visible: {
-            opacity: 1,
-            x: 0
-        }
+        // hidden: {
+        //     opacity: 0,
+        //     x: -100
+        // },
+        // visible: {
+        //     opacity: 1,
+        //     x: 0
+        // }
     }
 
     return <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>

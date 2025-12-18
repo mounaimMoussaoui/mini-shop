@@ -15,15 +15,15 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
 
         fetchedCategories.current = true;
 
-         getCategories().then((res) => {
-             setCategories(res);
-        }).catch(() => {
-            throw new Error("Error getting categories list");
-        });
+        //  getCategories().then((res) => {
+        //      setCategories(res);
+        // }).catch(() => {
+        //     throw new Error("Error getting categories list");
+        // });
     }, []);
 
     const validation  = ()  => {
-        const categoriesNames = categories.map((item) => { return item.name }) || [];
+        const categoriesNames = categories?.map((item) => { return item.name }) || [];
         return ValidationOfFilters(categoriesNames, maxPrice);
     }
 
@@ -57,7 +57,7 @@ export const SideFilters = React.memo(({maxPrice, getValuesFlr}) => {
                     <MySelect label={"Filter By Category:"} name={"ctrFlr"} id={"ctrFlr"}>
                         <option value="" defaultValue={"Select Category"}>Select Category</option>
                         {
-                            categories.map(c => (
+                            categories?.map(c => (
                                 <option key={c.id} value={c.name}>{c.name}</option>
                             ))
                         }
