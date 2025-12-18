@@ -121,7 +121,6 @@ export const Home = React.memo(() => {
         //     x: 0
         // }
     }
-
     return <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}>
             <section className={"relative flex flex-col sm:flex-row justify-between overflow-hidden sm:gap-2"}>
                 <SideFilters maxPrice={maxPrice()} getValuesFlr={getValuesFlr} />
