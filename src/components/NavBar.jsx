@@ -39,12 +39,12 @@ export const NavBar = React.memo(() => {
 
     return <motion.nav initial={{opacity: 0}} animate={{opacity: 1, transition: {type: "spring", delay: 0.3}}}
                        role="navigation" aria-label="Main navigation" className="flex items-center gap-5 p-5 bg-white z-10 shadow-sm shadow-black h-[90px] sticky top-0">
-        <motion.div initial={{ y: 5 }} animate={{ y: 0 , transition: { duration: 0.3, type: "spring" } }} whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="logo whitespace-nowrap transition-[0.3s] font-bold uppercase ms:tracking-wide sm:text-xl sm:w-[fit-content] text-white bg-amber-500 p-3 rounded shadow-sm shadow-amber-300">
+        <motion.div initial={{ y: 5 }} animate={{ y: 0 , transition: { duration: 0.3, type: "spring" } }} whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="logo whitespace-nowrap transition-[0.3s] font-bold uppercase ms:tracking-wide sm:text-xl sm:w-[fit-content] text-white bg-black p-3 rounded shadow-sm shadow-amber-300">
             <NavLink to={'/'}>
                 Mini-Shop
             </NavLink>
         </motion.div>
-        <motion.ul initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", duration: 0.5 } }} className={`bg-amber-500 -z-10 ${isMenuOpen ? "opacity-1 top-[90px]" : "opacity-0 top-[80px] pointer-events-none"} transition-[0.3s] flex-col text-white absolute py-5 left-0 w-full sm:opacity-100 ms:z-10 sm:pointer-events-auto items-center sm:flex sm:top-0 sm:relative sm:bg-transparent sm:text-black sm:flex-row sm:w-fit-content sm:flex-1 sm:justify-between md:gap-x-5 md:justify-end`}>
+        <motion.ul initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", duration: 0.5 } }} className={`bg-black -z-10 ${isMenuOpen ? "opacity-1 top-[90px]" : "opacity-0 top-[80px] pointer-events-none"} transition-[0.3s] flex-col text-white absolute py-5 left-0 w-full sm:opacity-100 ms:z-10 sm:pointer-events-auto items-center sm:flex sm:top-0 sm:relative sm:bg-transparent sm:text-black sm:flex-row sm:w-fit-content sm:flex-1 sm:justify-between md:gap-x-5 md:justify-end`}>
             <motion.li whileHover={{ scale: 1.1 }} transition={{ type: "spring", duration: 0.5 }} whileTap={{scale: 0.9}}>
                 <NavLink to="/" className={activeLink}><IoHome/> Home</NavLink>
             </motion.li>
